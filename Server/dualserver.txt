@@ -1,0 +1,1 @@
+this server should do both dynamic and static schema routes
