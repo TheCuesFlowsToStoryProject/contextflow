@@ -18,7 +18,7 @@ export default function UserProvider(props) {
         {headers: {'x-auth-token': token}}
       );
       if (tokenRes.data) {
-        const userRes = await Axios.get('http://localhost:8080/user', {
+        const userRes = await Axios.get('http://localhost:8080/auth/user', {
           headers: {'x-auth-token': token},
         });
         setUserData({

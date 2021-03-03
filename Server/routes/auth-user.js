@@ -93,7 +93,7 @@ router.post('/login', (req, res) => {
             res.json({
               token,
               user: {
-                id: user.id,
+                _id: user._id,
                 name: user.name,
                 email: user.email,
               },
@@ -104,7 +104,7 @@ router.post('/login', (req, res) => {
     });
   });
 });
-router.get('/user', auth, (req, res) => {
+router.get('/auth/user', auth, (req, res) => {
   User.findById(req.user.id)
     .select('-password')
     .then((user) => {

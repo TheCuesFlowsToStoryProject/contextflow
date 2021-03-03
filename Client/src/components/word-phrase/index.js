@@ -5,7 +5,7 @@ import {UserContext} from '../../provider/UserProvider';
 import {Form, Button} from 'react-bootstrap';
 import toastr from 'toastr';
 
-const WordPhrase = ({anchorType}) => {
+const WordPhrase = () => {
   const user_data = useContext(UserContext);
   const [userData, setUserData] = user_data.user;
 
@@ -31,10 +31,10 @@ const WordPhrase = ({anchorType}) => {
     isSelected(true);
     setValue(data);
   };
-
   //creating new anchor and saving to the db
   const handleCreate = (data) => {
     setLoading(true);
+
     let d = {wp: data, owner: userData.user._id};
 
     WordPhraseClientApi.saveWordPhrase(d).then((res) => {
@@ -54,7 +54,7 @@ const WordPhrase = ({anchorType}) => {
         setData(result.data);
       });
     })();
-  }, [loading, setLoading, anchorType]);
+  }, [loading, setLoading]);
 
   //passing an extra attribute named "label" to the array of obects as it needed by creatable components
   useEffect(() => {

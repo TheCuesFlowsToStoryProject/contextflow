@@ -30,9 +30,10 @@ router.get('/get-wordphrase', async (req, res) => {
 router.delete('/wordphrase/delete', async (req, res) => {
   const data = req.body;
   var id = ObjectId(data.id);
-
-  const check = await WordPhrase.exists({owner: data.owner});
-  if (check === true) {
+  var check = await WordPhrase.find({
+    $and: [{owner: data.owner}, {_id: id}],
+  });
+  if (check.length > 0) {
     WordPhrase.findByIdAndDelete({_id: id}, function (err, response) {
       if (err) {
         console.log(err);
@@ -47,9 +48,11 @@ router.delete('/wordphrase/delete', async (req, res) => {
 
 router.put('/wordphrase/update', async (req, res) => {
   const data = req.body;
-  const check = await WordPhrase.exists({owner: data.owner});
-  if (check) {
-    var id = ObjectId(data.id);
+  var id = ObjectId(data.id);
+  var check = await WordPhrase.find({
+    $and: [{owner: data.owner}, {_id: id}],
+  });
+  if (check.length > 0) {
     WordPhrase.findByIdAndUpdate(id, {wp: data.data}, {new: true})
       .then((response) => {
         res.json({data: response});
