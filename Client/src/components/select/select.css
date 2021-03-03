@@ -1,0 +1,23 @@
+.select-wrapper {
+  width: 400px;
+  margin: auto;
+  background: #f0efef;
+  color: #4f3222;
+  margin-top: 10px;
+  border: solid;
+}
+
+@media screen and (max-width: 480px) {
+  .select-wrapper {
+    width: 100%;
+  }
+}
+.form-wrapper {
+  width: 350px;
+  margin: auto;
+}
+.select-inner-wrapper {
+  width: 350px;
+  margin: auto;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,26 @@
+.header-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  background: #3c3c3c;
+  color: white;
+}
+@media screen and (max-width: 480px) {
+  .header-wrapper {
+    width: 100%;
+  }
+}
+.logo {
+  padding: 0.6em;
+}
+ul {
+  list-style: none;
+}
+.navbar ul {
+  display: flex;
+}
+.navbar li {
+  padding: 0.6em;
+  text-decoration: none;
+  color: white;
+}
