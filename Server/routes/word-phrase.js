@@ -42,7 +42,7 @@ router.delete('/wordphrase/delete', async (req, res) => {
       }
     });
   } else {
-    return res.send({err: 'you are not the owner to delete this phrase'});
+    return res.send({err: 'only owner can delete!'});
   }
 });
 

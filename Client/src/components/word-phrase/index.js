@@ -24,14 +24,14 @@ const WordPhrase = () => {
     } else {
       setDataChange(null);
     }
-  }, [value, setLoading]);
+  }, [value, setLoading, loading]);
 
   //hendle onchange for select creatable form and saving the selected data to session storage
   const handleChange = (data) => {
     isSelected(true);
     setValue(data);
   };
-  //creating new anchor and saving to the db
+  //creating new WordPhrase and saving to the db
   const handleCreate = (data) => {
     setLoading(true);
 
@@ -43,7 +43,7 @@ const WordPhrase = () => {
   };
 
   //handle ooChange function for edit data form
-  const handleAnchorChange = (e) => {
+  const handleWordPhraseChange = (e) => {
     setDataChange(e.target.value);
   };
 
@@ -68,8 +68,8 @@ const WordPhrase = () => {
     })();
   }, [data]);
 
-  //updating the anchor value in the DB
-  const updateAnchor = (e) => {
+  //updating the WordPhrase value in the DB
+  const updateWordPhrase = (e) => {
     e.preventDefault();
     setLoading(true);
     setEdit(false);
@@ -96,8 +96,8 @@ const WordPhrase = () => {
     });
   };
 
-  //deleting the anchor from db
-  const deleteAnchor = (e) => {
+  //deleting the WordPhrase from db
+  const deleteWordPhrase = (e) => {
     e.preventDefault();
     setLoading(true);
     SetDelete(false);
@@ -126,14 +126,14 @@ const WordPhrase = () => {
             {/* this is the form where we can update the value this will appear when we click on the edit button by setEdit(true) */}
             {edit && value ? (
               <>
-                <Form id="edit-form" onSubmit={updateAnchor}>
+                <Form id="edit-form" onSubmit={updateWordPhrase}>
                   <Form.Group>
                     <Form.Control
                       type="text"
                       name="component"
-                      onChange={handleAnchorChange}
+                      onChange={handleWordPhraseChange}
                       value={dataToBeChange ? dataToBeChange : ''}
-                      placeholder="Edit Anchor"
+                      placeholder="Edit WordPhrase"
                     />
                   </Form.Group>
 
@@ -156,13 +156,13 @@ const WordPhrase = () => {
             {IsDelete && value ? (
               <>
                 {' '}
-                <Form id="delete-form" onSubmit={deleteAnchor}>
+                <Form id="delete-form" onSubmit={deleteWordPhrase}>
                   <Form.Group>
                     <Form.Control
                       type="text"
                       name="components"
                       value={dataToBeChange ? dataToBeChange : ''}
-                      placeholder="Edit Anchor"
+                      placeholder="Edit WordPhrase"
                       disabled
                     />
                   </Form.Group>
