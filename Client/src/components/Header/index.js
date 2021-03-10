@@ -23,8 +23,8 @@ const Header = () => {
       </Link>
       <div className="navbar">
         <ul>
-          <Link style={{textDecoration: 'none'}} to="/">
-            <li>Home</li>
+          <Link style={{textDecoration: 'none'}} to="/contextflow">
+            <li>Contextflow</li>
           </Link>
           <Link style={{textDecoration: 'none'}} to="/anchor">
             <li>Anchor</li>

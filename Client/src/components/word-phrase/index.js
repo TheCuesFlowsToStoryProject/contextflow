@@ -5,7 +5,7 @@ import {UserContext} from '../../provider/UserProvider';
 import {Form, Button} from 'react-bootstrap';
 import toastr from 'toastr';
 
-const WordPhrase = () => {
+const WordPhrase = ({name, setModule, setDomain, setFlow}) => {
   const user_data = useContext(UserContext);
   const [userData, setUserData] = user_data.user;
 
@@ -28,8 +28,21 @@ const WordPhrase = () => {
 
   //hendle onchange for select creatable form and saving the selected data to session storage
   const handleChange = (data) => {
+    var c_data = {};
+    var key_name = name;
     isSelected(true);
     setValue(data);
+    c_data[key_name] = data.wp;
+
+    if (setDomain) {
+      setDomain(c_data);
+    }
+    if (setFlow) {
+      setFlow(c_data);
+    }
+    if (setModule) {
+      setModule(c_data);
+    }
   };
   //creating new anchor and saving to the db
   const handleCreate = (data) => {
@@ -122,7 +135,7 @@ const WordPhrase = () => {
       <div className="select-wrapper">
         <div>
           <div className="form-wrapper">
-            <p>Word phrase event</p>
+            <p>{name ? name : 'word phrase'}</p>
             {/* this is the form where we can update the value this will appear when we click on the edit button by setEdit(true) */}
             {edit && value ? (
               <>

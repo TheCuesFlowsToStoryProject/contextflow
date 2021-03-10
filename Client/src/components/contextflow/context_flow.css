@@ -1,0 +1,51 @@
+.context-wrapper {
+  max-width: 900px;
+  margin: auto;
+}
+.context-wrapper li {
+  font-size: 1em;
+  line-height: 1.8em;
+}
+.head-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr 4fr;
+  grid-gap: 10px;
+  margin-left: 50px;
+  margin-top: 50px;
+}
+.module-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 4fr;
+  grid-gap: 10px;
+}
+
+.wp-holder {
+  display: flex;
+  justify-content: space-between;
+  /* border-bottom: 0.5px solid #aaa; */
+}
+.wp-holder:nth-child(even) {
+  background-color: #f2f2f2;
+}
+.button-container {
+  display: flex;
+  margin-left: auto;
+}
+.change-button {
+  margin-right: 10px;
+}
+.sub-head {
+  display: flex;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+@media (max-width: 1200px) {
+  /*breakpoint*/
+  .container {
+    grid-template-columns: none;
+  }
+}

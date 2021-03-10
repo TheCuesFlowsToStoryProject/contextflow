@@ -8,6 +8,7 @@ const {PORT} = config;
 const AnchorRoutes = require('./routes/anchor');
 const AuthUserRoutes = require('./routes/auth-user');
 const WordPhraseRoutes = require('./routes/word-phrase');
+const ContextflowRoutes = require('./routes/contextflow');
 
 const {MONGO_URI, MONGO_DB_NAME} = config;
 
@@ -28,6 +29,7 @@ mongoose
 app.use('/', AnchorRoutes);
 app.use('/', AuthUserRoutes);
 app.use('/', WordPhraseRoutes);
+app.use('/', ContextflowRoutes);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
