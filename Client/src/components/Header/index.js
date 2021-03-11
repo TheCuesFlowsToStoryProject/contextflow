@@ -3,7 +3,7 @@ import './header.css';
 import {Link} from 'react-router-dom';
 import {UserContext} from '../../provider/UserProvider';
 import {useHistory} from 'react-router-dom';
-
+import logo from '../../assets/logo.png';
 const Header = () => {
   const history = useHistory();
   const value = useContext(UserContext);
@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <div className="header-wrapper">
       <Link style={{textDecoration: 'none'}} to="/">
-        <div className="logo">logo</div>
+        <img className="logo" src={logo} alt="logo" />
       </Link>
       <div className="navbar">
         <ul>
@@ -28,9 +28,6 @@ const Header = () => {
           </Link>
           <Link style={{textDecoration: 'none'}} to="/anchor">
             <li>Anchor</li>
-          </Link>
-          <Link style={{textDecoration: 'none'}} to="/wordphrase">
-            <li>Word Phrase</li>
           </Link>
           {userData.user ? (
             <>

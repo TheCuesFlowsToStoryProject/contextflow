@@ -49,3 +49,10 @@
     grid-template-columns: none;
   }
 }
+.user_anchor {
+  text-align: center;
+  width: 200px;
+  min-height: 50px;
+  margin: auto;
+  background: navajowhite;
+}

@@ -5,7 +5,7 @@ import {UserContext} from '../../provider/UserProvider';
 import {Form, Button} from 'react-bootstrap';
 import toastr from 'toastr';
 
-const WordPhrase = ({name, setModule, setDomain, setFlow}) => {
+const WordPhrase = ({name, setModule, setDomain, setFlow, isMulti}) => {
   const user_data = useContext(UserContext);
   const [userData, setUserData] = user_data.user;
 
@@ -32,8 +32,9 @@ const WordPhrase = ({name, setModule, setDomain, setFlow}) => {
     var key_name = name;
     isSelected(true);
     setValue(data);
-    c_data[key_name] = data.wp;
-
+    if (data) {
+      c_data[key_name] = data.wp;
+    }
     if (setDomain) {
       setDomain(c_data);
     }
@@ -41,7 +42,7 @@ const WordPhrase = ({name, setModule, setDomain, setFlow}) => {
       setFlow(c_data);
     }
     if (setModule) {
-      setModule(c_data);
+      setModule(data);
     }
   };
   //creating new anchor and saving to the db
@@ -74,6 +75,7 @@ const WordPhrase = ({name, setModule, setDomain, setFlow}) => {
     (async () => {
       let wdata = data.map((e) => {
         e.label = e.wp;
+        e.value = e.wp;
         return e;
       });
 
@@ -197,32 +199,50 @@ const WordPhrase = ({name, setModule, setDomain, setFlow}) => {
           {/* this is the creatable components with some basic inline css */}
           <div className="select-inner-wrapper">
             <div style={{marginBottom: '30px'}}>
-              <CreatableSelect
-                maxMenuHeight={200}
-                isClearable
-                isDisabled={false}
-                isLoading={loading}
-                onChange={handleChange}
-                onCreateOption={handleCreate}
-                options={data}
-                value={value}
-              />
+              {isMulti ? (
+                <CreatableSelect
+                  maxMenuHeight={200}
+                  isMulti
+                  isClearable
+                  isDisabled={false}
+                  isLoading={loading}
+                  onChange={handleChange}
+                  onCreateOption={handleCreate}
+                  options={data}
+                  value={value}
+                />
+              ) : (
+                <CreatableSelect
+                  maxMenuHeight={200}
+                  isClearable
+                  isDisabled={false}
+                  isLoading={loading}
+                  onChange={handleChange}
+                  onCreateOption={handleCreate}
+                  options={data}
+                  value={value}
+                />
+              )}
             </div>
             <div>
-              {selected && !edit && !IsDelete && value ? (
+              {isMulti ? null : (
                 <>
-                  <Button
-                    variant="success"
-                    style={{margin: '5px'}}
-                    onClick={() => setEdit(true)}
-                  >
-                    Edit
-                  </Button>
-                  <Button variant="danger" onClick={() => SetDelete(true)}>
-                    Delete
-                  </Button>
+                  {selected && !edit && !IsDelete && value ? (
+                    <>
+                      <Button
+                        variant="success"
+                        style={{margin: '5px'}}
+                        onClick={() => setEdit(true)}
+                      >
+                        Edit
+                      </Button>
+                      <Button variant="danger" onClick={() => SetDelete(true)}>
+                        Delete
+                      </Button>
+                    </>
+                  ) : null}
                 </>
-              ) : null}
+              )}
             </div>
           </div>
         </div>

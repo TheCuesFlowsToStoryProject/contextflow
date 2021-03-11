@@ -8,24 +8,21 @@ import {UserContext} from '../../provider/UserProvider';
 const AddContext = ({setAdd, setError}) => {
   const [domain, setDomain] = useState();
   const [flow, setFlow] = useState();
-  const [module_entity, setModule] = useState();
+  const [module_entity, setModule] = useState([]);
   var flow_anchor = JSON.parse(sessionStorage.getItem('FlowAnchor'));
   var domain_anchor = JSON.parse(sessionStorage.getItem('DomainAnchor'));
   var user_anchor = JSON.parse(sessionStorage.getItem('UserAnchor'));
   const value = useContext(UserContext);
   const [userData, setUserData] = value.user;
 
+  var ModuleEntity = module_entity.map(function (item) {
+    return item['wp'];
+  });
+
   const saveContext = async () => {
-    if (
-      domain &&
-      flow &&
-      module &&
-      flow_anchor &&
-      domain_anchor &&
-      userData.user
-    ) {
+    if (domain && flow && flow_anchor && domain_anchor && userData.user) {
       let d = [
-        module_entity.Module_entity,
+        ModuleEntity,
         domain,
         flow,
         {FlowAnchor: flow_anchor.anchor},
@@ -54,7 +51,12 @@ const AddContext = ({setAdd, setError}) => {
           <WordPhrase setFlow={setFlow} name={'flow'} />
         </div>
         <div className="section">
-          <WordPhrase setModule={setModule} name={'Module_entity'} />-
+          <WordPhrase
+            setModule={setModule}
+            isMulti={'isMulti'}
+            name={'Module_entity'}
+          />
+          -
         </div>
       </div>
       <div style={{width: '200px', margin: 'auto'}}>

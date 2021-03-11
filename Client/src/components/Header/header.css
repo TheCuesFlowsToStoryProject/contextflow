@@ -1,5 +1,6 @@
 .header-wrapper {
   width: 100%;
+  height: 60px;
   display: flex;
   justify-content: space-between;
   background: #3c3c3c;
@@ -11,7 +12,10 @@
   }
 }
 .logo {
-  padding: 0.6em;
+  width: auto;
+  max-width: 220px;
+  min-height: 70px;
+  max-height: 70px;
 }
 ul {
   list-style: none;

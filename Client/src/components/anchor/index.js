@@ -6,6 +6,7 @@ const Anchor = () => {
     <div>
       <SelectCurd anchorType={'DomainAnchor'} />
       <SelectCurd anchorType={'FlowAnchor'} />
+      <SelectCurd anchorType={'UserAnchor'} />
     </div>
   );
 };
