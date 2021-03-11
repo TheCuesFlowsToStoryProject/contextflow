@@ -5,7 +5,14 @@ import {UserContext} from '../../provider/UserProvider';
 import {Form, Button} from 'react-bootstrap';
 import toastr from 'toastr';
 
-const WordPhrase = ({name, setModule, setDomain, setFlow, isMulti}) => {
+const WordPhrase = ({
+  name,
+  setModule,
+  setDomain,
+  setFlow,
+  isMulti,
+  setAddModuleData,
+}) => {
   const user_data = useContext(UserContext);
   const [userData, setUserData] = user_data.user;
 
@@ -43,6 +50,9 @@ const WordPhrase = ({name, setModule, setDomain, setFlow, isMulti}) => {
     }
     if (setModule) {
       setModule(data);
+    }
+    if (setAddModuleData) {
+      setAddModuleData(data);
     }
   };
   //creating new anchor and saving to the db

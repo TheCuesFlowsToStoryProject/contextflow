@@ -7,15 +7,15 @@ const client = axios.create({
 
 export const saveContextFlow = (payload) => client.post(`/context`, payload);
 export const getAllContextFlow = () => client.get(`/contexts`);
-// export const updateContextFlowById = (payload) =>
-//   client.put(`/contextflow/update`, payload);
+export const updateContextFlowById = (payload) =>
+  client.put(`/add-module-entity`, payload);
 // export const deleteContextFlowById = (payload) =>
 //   client.delete('/contextflow/delete', {data: payload});
 
 const ContextFlowClientApi = {
   getAllContextFlow,
   saveContextFlow,
-  //   updateContextFlowById,
+  updateContextFlowById,
   //   deleteContextFlowById,
 };
 

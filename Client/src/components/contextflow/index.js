@@ -1,29 +1,48 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import AddContext from './AddContext';
 import {getAllContextFlow} from '../../client-api/contextflow';
 import './context_flow.css';
 import {Button} from 'react-bootstrap';
 import AddModuleEntity from './AddModuleEnity';
 import ErrorNotice from '../Notify/ErrorNotice';
+import {UserContext} from '../../provider/UserProvider';
+
 const ContextFlow = () => {
   const [error, setError] = useState();
   const [contextData, setContextData] = useState([]);
   const [add, setAdd] = useState(false);
   const [addModule, setAddModule] = useState(false);
+  const [atn, setAtn] = useState();
+  const [context, setContext] = useState();
+  const value = useContext(UserContext);
+  const [userData, setUserData] = value.user;
   useEffect(() => {
     (async () => {
       const data = await getAllContextFlow();
       setContextData(data.data.arr);
     })();
-  }, [setAdd, add]);
+  }, [setAdd, add, addModule, setAddModule]);
   var flow_anchor = JSON.parse(sessionStorage.getItem('FlowAnchor'));
   var domain_anchor = JSON.parse(sessionStorage.getItem('DomainAnchor'));
   var user_anchor = JSON.parse(sessionStorage.getItem('UserAnchor'));
+
   const Context = () => {
     setAdd(true);
   };
+  const add_module = async (context) => {
+    var count = 0;
+    for (var key in context) {
+      if (key.includes('atn')) {
+        count = count + 1;
+      }
+    }
+    setAtn(count);
+    setAddModule(true);
+    setContext(context);
+  };
+
   return (
-    <div>
+    <div className="main-containers">
       {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
       )}
@@ -34,9 +53,16 @@ const ContextFlow = () => {
           </div>
         ) : null}
       </div>
+      <div className="user-container">
+        {userData.user ? <p>UserName:{userData.user.name}</p> : null}
+      </div>
       {addModule ? (
         <>
-          <AddModuleEntity setAddModule={setAddModule} />
+          <AddModuleEntity
+            context={context}
+            atn={atn}
+            setAddModule={setAddModule}
+          />
         </>
       ) : null}
 
@@ -58,7 +84,7 @@ const ContextFlow = () => {
         <hr />
 
         {contextData.map((context, index) => (
-          <ul atn={index} className="module-container">
+          <ul key={index} className="module-container">
             {' '}
             <div>
               <li>{context.domain}</li>
@@ -76,8 +102,7 @@ const ContextFlow = () => {
                       <Button
                         variant="warning"
                         onClick={() => {
-                          setAddModule(true);
-                          console.log(context);
+                          add_module(context);
                         }}
                         className="change-button"
                       >
@@ -124,6 +149,76 @@ const ContextFlow = () => {
                   <>
                     {' '}
                     <li>{context.atn4}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn5 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn5}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn6 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn6}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn7 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn7}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn8 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn8}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn9 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn9}</li>{' '}
                     <div className="button-container">
                       <Button variant="success" className="change-button">
                         C

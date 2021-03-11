@@ -22,13 +22,13 @@ const AddContext = ({setAdd, setError}) => {
   const saveContext = async () => {
     if (domain && flow && flow_anchor && domain_anchor && userData.user) {
       let d = [
-        ModuleEntity,
         domain,
         flow,
         {FlowAnchor: flow_anchor.anchor},
         {DomainAnchor: domain_anchor.anchor},
         {UserAnchor: user_anchor.anchor},
         {uid: userData.user._id},
+        ModuleEntity,
       ];
 
       saveContextFlow(d).then((res) => {
