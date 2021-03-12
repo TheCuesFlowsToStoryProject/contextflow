@@ -1,0 +1,10 @@
+.demo {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  height: auto;
+  width: auto;
+  color: #03090e;
+  font-size: 1em;
+  border-bottom: 1px solid #3498db;
+}

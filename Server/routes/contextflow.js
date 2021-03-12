@@ -73,6 +73,7 @@ router.get('/contexts', async (req, res) => {
 
 router.post('/context', (req, res) => {
   const data = req.body;
+
   const arr = [];
   var UID = data.find(({uid}) => uid);
   const len = data.length;
@@ -201,7 +202,6 @@ router.post('/context', (req, res) => {
 //add module entity
 router.put('/add-module-entity', async (req, res) => {
   const data = req.body;
-
   const contx_data = await Context.findById(data.contextId).then((res) => {
     return res;
   });

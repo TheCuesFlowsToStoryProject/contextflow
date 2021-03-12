@@ -54,7 +54,7 @@ const ContextFlow = () => {
         ) : null}
       </div>
       <div className="user-container">
-        {userData.user ? <p>UserName:{userData.user.name}</p> : null}
+        {userData.user ? <p>Username: {userData.user.name}</p> : null}
       </div>
       {addModule ? (
         <>
@@ -65,15 +65,15 @@ const ContextFlow = () => {
           />
         </>
       ) : null}
-
-      {add ? <AddContext setError={setError} setAdd={setAdd} /> : null}
-
+      <div style={{marginTop: '10px'}}>
+        {add ? <AddContext setError={setError} setAdd={setAdd} /> : null}
+      </div>
       <div className="context-wrapper">
         <div className="head-wrapper">
           <p>{domain_anchor ? domain_anchor.anchor : 'Domain'}</p>
           <p>{flow_anchor ? flow_anchor.anchor : 'Flow'}</p>
           <div className="sub-head">
-            <p>Module Entity</p>
+            <p>Model Entity</p>
             <div className="button-container">
               {!add && !addModule ? (
                 <Button onClick={() => Context()}>+</Button>
@@ -219,6 +219,104 @@ const ContextFlow = () => {
                   <>
                     {' '}
                     <li>{context.atn9}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn10 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn10}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn11 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn11}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn12 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn12}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn13 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn13}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn14 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn14}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn15 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn15}</li>{' '}
+                    <div className="button-container">
+                      <Button variant="success" className="change-button">
+                        C
+                      </Button>
+                      <Button variant="danger">D</Button>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+              <div className="wp-holder">
+                {context.atn16 ? (
+                  <>
+                    {' '}
+                    <li>{context.atn16}</li>{' '}
                     <div className="button-container">
                       <Button variant="success" className="change-button">
                         C

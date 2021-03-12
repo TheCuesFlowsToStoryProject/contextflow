@@ -8,19 +8,27 @@ import {UserContext} from '../../provider/UserProvider';
 const AddContext = ({setAdd, setError}) => {
   const [domain, setDomain] = useState();
   const [flow, setFlow] = useState();
-  const [module_entity, setModule] = useState([]);
+  const [model_entity, setModel] = useState([]);
   var flow_anchor = JSON.parse(sessionStorage.getItem('FlowAnchor'));
   var domain_anchor = JSON.parse(sessionStorage.getItem('DomainAnchor'));
   var user_anchor = JSON.parse(sessionStorage.getItem('UserAnchor'));
   const value = useContext(UserContext);
   const [userData, setUserData] = value.user;
 
-  var ModuleEntity = module_entity.map(function (item) {
+  var ModelEntity = model_entity.map(function (item) {
     return item['wp'];
   });
 
   const saveContext = async () => {
-    if (domain && flow && flow_anchor && domain_anchor && userData.user) {
+    if (
+      domain &&
+      flow &&
+      flow_anchor &&
+      domain_anchor &&
+      userData.user &&
+      user_anchor &&
+      model_entity.length > 0
+    ) {
       let d = [
         domain,
         flow,
@@ -28,11 +36,10 @@ const AddContext = ({setAdd, setError}) => {
         {DomainAnchor: domain_anchor.anchor},
         {UserAnchor: user_anchor.anchor},
         {uid: userData.user._id},
-        ModuleEntity,
+        ModelEntity,
       ];
 
       saveContextFlow(d).then((res) => {
-        console.log(res);
         setError(res.data.err);
         setAdd(false);
       });
@@ -45,16 +52,25 @@ const AddContext = ({setAdd, setError}) => {
     <div>
       <div className="container">
         <div className="section">
-          <WordPhrase setDomain={setDomain} name={'domain'} />
-        </div>
-        <div className="section">
-          <WordPhrase setFlow={setFlow} name={'flow'} />
+          <WordPhrase
+            setDomain={setDomain}
+            name={'domain'}
+            heading={domain_anchor ? domain_anchor.anchor : 'Domain Anchor'}
+          />
         </div>
         <div className="section">
           <WordPhrase
-            setModule={setModule}
+            setFlow={setFlow}
+            name={'flow'}
+            heading={flow_anchor ? flow_anchor.anchor : 'Flow Anchor'}
+          />
+        </div>
+        <div className="section">
+          <WordPhrase
+            setModel={setModel}
             isMulti={'isMulti'}
-            name={'Module_entity'}
+            name={'model_entity'}
+            heading={'Model Entity'}
           />
           -
         </div>

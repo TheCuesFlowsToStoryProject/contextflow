@@ -12,9 +12,8 @@ router.post('/post-wordphrase', async (req, res) => {
     owner: data.owner,
   });
   Wordphrase.save()
-    .then(() => {
-      console.log('an word phrase saved succesfully');
-      res.send({msg: 'sucessfully saved'});
+    .then((response) => {
+      res.send({data: response});
     })
     .catch((err) => {
       console.log(err);

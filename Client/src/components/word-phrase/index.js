@@ -4,14 +4,16 @@ import WordPhraseClientApi from '../../client-api/word-phrase';
 import {UserContext} from '../../provider/UserProvider';
 import {Form, Button} from 'react-bootstrap';
 import toastr from 'toastr';
+import './Wordphrase.css';
 
 const WordPhrase = ({
   name,
-  setModule,
+  setModel,
   setDomain,
   setFlow,
   isMulti,
   setAddModuleData,
+  heading,
 }) => {
   const user_data = useContext(UserContext);
   const [userData, setUserData] = user_data.user;
@@ -48,8 +50,8 @@ const WordPhrase = ({
     if (setFlow) {
       setFlow(c_data);
     }
-    if (setModule) {
-      setModule(data);
+    if (setModel) {
+      setModel(data);
     }
     if (setAddModuleData) {
       setAddModuleData(data);
@@ -62,6 +64,28 @@ const WordPhrase = ({
     let d = {wp: data, owner: userData.user._id};
 
     WordPhraseClientApi.saveWordPhrase(d).then((res) => {
+      var sd = {
+        _id: res.data.data._id,
+        wp: res.data.data.wp,
+        __v: res.data.data.__v,
+        owner: res.data.data.owner,
+        label: res.data.data.wp,
+        value: res.data.data.wp,
+      };
+      if (setDomain) {
+        setValue(sd);
+        const obj = {domain: sd.wp};
+        setDomain(obj);
+      }
+      if (setFlow) {
+        setValue(sd);
+        const obj = {flow: sd.wp};
+        setFlow(obj);
+      }
+      if (setAddModuleData) {
+        setValue(sd);
+        setAddModuleData(sd);
+      }
       setLoading(false);
     });
   };
@@ -115,6 +139,16 @@ const WordPhrase = ({
           owner: res.data.data.owner,
           label: res.data.data.wp,
         };
+        if (setDomain) {
+          setValue(sd);
+          const obj = {domain: sd.wp};
+          setDomain(obj);
+        }
+        if (setFlow) {
+          setValue(sd);
+          const obj = {flow: sd.wp};
+          setFlow(obj);
+        }
         setValue(sd);
         setLoading(false);
       }
@@ -142,12 +176,13 @@ const WordPhrase = ({
       setEdit(false);
     });
   };
+
   return (
     <div>
       <div className="select-wrapper">
         <div>
           <div className="form-wrapper">
-            <p>{name ? name : 'word phrase'}</p>
+            <p>{heading ? heading : 'word phrase'}</p>
             {/* this is the form where we can update the value this will appear when we click on the edit button by setEdit(true) */}
             {edit && value ? (
               <>
@@ -239,16 +274,21 @@ const WordPhrase = ({
                 <>
                   {selected && !edit && !IsDelete && value ? (
                     <>
-                      <Button
+                      <button
+                        className="demo"
                         variant="success"
                         style={{margin: '5px'}}
                         onClick={() => setEdit(true)}
                       >
                         Edit
-                      </Button>
-                      <Button variant="danger" onClick={() => SetDelete(true)}>
+                      </button>
+                      <button
+                        variant="danger"
+                        className="demo"
+                        onClick={() => SetDelete(true)}
+                      >
                         Delete
-                      </Button>
+                      </button>
                     </>
                   ) : null}
                 </>

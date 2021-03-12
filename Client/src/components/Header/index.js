@@ -18,9 +18,11 @@ const Header = () => {
   };
   return (
     <div className="header-wrapper">
-      <Link style={{textDecoration: 'none'}} to="/">
-        <img className="logo" src={logo} alt="logo" />
-      </Link>
+      <div className="logo-wrapper">
+        <Link style={{textDecoration: 'none'}} to="/">
+          <img className="logo-wrapper" src={logo} alt="logo" />
+        </Link>
+      </div>
       <div className="navbar">
         <ul>
           <Link style={{textDecoration: 'none'}} to="/contextflow">

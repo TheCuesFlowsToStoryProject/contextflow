@@ -1,4 +1,6 @@
 .main-containers {
+  height: 100vh;
+  width: 100%;
   position: relative;
 }
 .context-wrapper {
@@ -60,12 +62,6 @@
   background: navajowhite;
 }
 .user-container {
-  position: absolute;
-  top: 8px;
-  right: 18px;
-  background: navajowhite;
-}
-.user-container p {
-  font-size: 15px;
-  background: navajowhite;
+  text-align: right;
+  height: auto;
 }

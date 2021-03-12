@@ -9,6 +9,7 @@ const AddModuleEntity = ({setAddModule, atn, context}) => {
   const [error, setError] = useState();
 
   const AddModuleEntity = async () => {
+    console.log(data);
     if (data) {
       const arrl = Object.entries(context);
       var arr = [];

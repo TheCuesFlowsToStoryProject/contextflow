@@ -4,7 +4,7 @@ import AnchorClientApi from '../../client-api/anchor';
 import {Form, Button} from 'react-bootstrap';
 import './select.css';
 
-const SelectCurd = ({anchorType}) => {
+const SelectCurd = ({anchorType, setDomain, setFlow, setUser}) => {
   const check = sessionStorage.getItem(anchorType) !== null;
   const session_data = check
     ? JSON.parse(sessionStorage.getItem(anchorType) || {})
@@ -20,6 +20,15 @@ const SelectCurd = ({anchorType}) => {
 
   //geting data from the session storage using useEffect
   useEffect(() => {
+    if (setDomain) {
+      setDomain(value);
+    }
+    if (setFlow) {
+      setFlow(value);
+    }
+    if (setUser) {
+      setUser(value);
+    }
     if (value !== null) {
       setDataChange(value.anchor);
     } else {
@@ -40,7 +49,15 @@ const SelectCurd = ({anchorType}) => {
     let d = {anchor: data, anchorType: anchorType};
 
     AnchorClientApi.saveAnchor(d).then((res) => {
+      var sd = {
+        _id: res.data.data._id,
+        anchor: res.data.data.anchor,
+        __v: res.data.data.__v,
+        label: res.data.data.anchor,
+      };
       setLoading(false);
+      setValue(sd);
+      sessionStorage.setItem(anchorType, JSON.stringify(sd));
     });
   };
 
