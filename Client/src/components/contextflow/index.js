@@ -26,6 +26,8 @@ const ContextFlow = () => {
   var domain_anchor = JSON.parse(sessionStorage.getItem('DomainAnchor'));
   var user_anchor = JSON.parse(sessionStorage.getItem('UserAnchor'));
 
+  const user = userData.user !== undefined ? userData.user : userData.user2;
+
   const Context = () => {
     setAdd(true);
   };
@@ -54,9 +56,9 @@ const ContextFlow = () => {
         ) : null}
       </div>
       <div className="user-container">
-        {userData.user ? (
+        {user ? (
           <p>
-            Username : <b>{userData.user.name}</b>{' '}
+            Username : <b>{user.name}</b>{' '}
           </p>
         ) : null}
       </div>

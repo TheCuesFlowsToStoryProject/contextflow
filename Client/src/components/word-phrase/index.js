@@ -17,6 +17,7 @@ const WordPhrase = ({
 }) => {
   const user_data = useContext(UserContext);
   const [userData, setUserData] = user_data.user;
+  const user = userData.user !== undefined ? userData.user : userData.user2;
 
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -59,10 +60,10 @@ const WordPhrase = ({
   };
   //creating new anchor and saving to the db
   const handleCreate = (data) => {
-    if (userData.user) {
+    if (user) {
       setLoading(true);
 
-      let d = {wp: data, owner: userData.user._id};
+      let d = {wp: data, owner: user._id};
 
       WordPhraseClientApi.saveWordPhrase(d).then((res) => {
         var sd = {
@@ -129,7 +130,7 @@ const WordPhrase = ({
     const d = {
       id: value._id,
       data: dataToBeChange,
-      owner: userData.user._id,
+      owner: user._id,
     };
     WordPhraseClientApi.updateWordPhraseById(d).then((res) => {
       if (res.data.err) {
@@ -166,7 +167,7 @@ const WordPhrase = ({
     SetDelete(false);
     var d = {
       id: value._id,
-      owner: userData.user._id,
+      owner: user._id,
     };
     WordPhraseClientApi.deleteWordPhraseById(d).then((res) => {
       setValue(null);

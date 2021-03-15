@@ -9,9 +9,15 @@ const Header = () => {
   const value = useContext(UserContext);
   const [userData, setUserData] = value.user;
   const LogOut = () => {
+    const user2 = {
+      _id: 'demo',
+      name: 'demo',
+      email: 'demo@gmail.com',
+    };
     setUserData({
       token: undefined,
       user: undefined,
+      user2,
     });
     localStorage.setItem('auth-token', '');
     history.push('/');

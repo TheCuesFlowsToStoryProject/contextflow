@@ -10,9 +10,9 @@ const AddModuleEntity = ({setAddModule, atn, context}) => {
   const [error, setError] = useState();
   const value = useContext(UserContext);
   const [userData, setUserData] = value.user;
-
+  const user = userData.user !== undefined ? userData.user : userData.user2;
   const AddModuleEntity = async () => {
-    if (userData.user) {
+    if (user) {
       if (data) {
         const arrl = Object.entries(context);
         var arr = [];
@@ -25,8 +25,8 @@ const AddModuleEntity = ({setAddModule, atn, context}) => {
         var n = arr.includes(data.wp);
       }
       if (!n) {
-        if (data && context && atn && userData.user) {
-          const user_id = userData.user._id;
+        if (data && context && atn && user) {
+          const user_id = user._id;
           const owner_id = context.uid;
           if (user_id === owner_id) {
             var index = atn + 1;

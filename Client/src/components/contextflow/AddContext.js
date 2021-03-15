@@ -14,18 +14,20 @@ const AddContext = ({setAdd, setError}) => {
   var user_anchor = JSON.parse(sessionStorage.getItem('UserAnchor'));
   const value = useContext(UserContext);
   const [userData, setUserData] = value.user;
+  const user = userData.user !== undefined ? userData.user : userData.user2;
 
   var ModelEntity = model_entity.map(function (item) {
     return item['wp'];
   });
   const saveContext = async () => {
-    if (userData.user) {
+    if (user) {
+      console.log(user);
       if (
         domain &&
         flow &&
         flow_anchor &&
         domain_anchor &&
-        userData.user &&
+        user &&
         user_anchor &&
         model_entity.length > 0
       ) {
@@ -35,7 +37,7 @@ const AddContext = ({setAdd, setError}) => {
           {FlowAnchor: flow_anchor.anchor},
           {DomainAnchor: domain_anchor.anchor},
           {UserAnchor: user_anchor.anchor},
-          {uid: userData.user._id},
+          {uid: user._id},
           ModelEntity,
         ];
 
