@@ -1,49 +1,61 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import WordPhrase from '../word-phrase/index';
 import {Button} from 'react-bootstrap';
 import {updateContextFlowById} from '../../client-api/contextflow';
 import ErrorNotice from '../Notify/ErrorNotice';
+import {UserContext} from '../../provider/UserProvider';
 
 const AddModuleEntity = ({setAddModule, atn, context}) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState();
+  const value = useContext(UserContext);
+  const [userData, setUserData] = value.user;
 
   const AddModuleEntity = async () => {
-    console.log(data);
-    if (data) {
-      const arrl = Object.entries(context);
-      var arr = [];
-      arrl.filter(([key, value]) => {
-        if (key.includes('atn')) {
-          arr.push(value);
+    if (userData.user) {
+      if (data) {
+        const arrl = Object.entries(context);
+        var arr = [];
+        arrl.filter(([key, value]) => {
+          if (key.includes('atn')) {
+            arr.push(value);
+          }
+        });
+
+        var n = arr.includes(data.wp);
+      }
+      if (!n) {
+        if (data && context && atn && userData.user) {
+          const user_id = userData.user._id;
+          const owner_id = context.uid;
+          if (user_id === owner_id) {
+            var index = atn + 1;
+            const obj1 = {
+              value: data._id,
+              contextId: context._id,
+              owner: user_id,
+              key: `atn${index}`,
+            };
+
+            updateContextFlowById(obj1)
+              .then((res) => {
+                setAddModule(false);
+                setError(res.data.err);
+              })
+              .catch((err) => {
+                setAddModule(false);
+              });
+          } else {
+            alert('only owner can update');
+          }
+        } else {
+          alert('please select one module entity');
         }
-      });
-
-      var n = arr.includes(data.wp);
-    }
-    if (!n) {
-      if (data && context && atn) {
-        var index = atn + 1;
-        const obj1 = {
-          value: data._id,
-          contextId: context._id,
-          owner: context.uid,
-          key: `atn${index}`,
-        };
-
-        updateContextFlowById(obj1)
-          .then((res) => {
-            setAddModule(false);
-            setError(res.data.err);
-          })
-          .catch((err) => {
-            setAddModule(false);
-          });
       } else {
-        alert('please select one module entity');
+        alert('This Module Entity already exist');
       }
     } else {
-      alert('This Module Entity already exist');
+      alert('Please log in');
     }
   };
   return (
@@ -51,7 +63,7 @@ const AddModuleEntity = ({setAddModule, atn, context}) => {
       {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
       )}
-      <WordPhrase setAddModuleData={setData} name={'add module entity'} />
+      <WordPhrase setAddModulesData={setData} name={'add module entity'} />
       <div style={{width: '200px', margin: 'auto', marginTop: '10px'}}>
         <Button variant="danger" onClick={() => setAddModule(false)}>
           cancel

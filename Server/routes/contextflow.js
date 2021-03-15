@@ -73,7 +73,6 @@ router.get('/contexts', async (req, res) => {
 
 router.post('/context', (req, res) => {
   const data = req.body;
-
   const arr = [];
   var UID = data.find(({uid}) => uid);
   const len = data.length;

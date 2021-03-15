@@ -12,7 +12,7 @@ const WordPhrase = ({
   setDomain,
   setFlow,
   isMulti,
-  setAddModuleData,
+  setAddModulesData,
   heading,
 }) => {
   const user_data = useContext(UserContext);
@@ -53,41 +53,45 @@ const WordPhrase = ({
     if (setModel) {
       setModel(data);
     }
-    if (setAddModuleData) {
-      setAddModuleData(data);
+    if (setAddModulesData) {
+      setAddModulesData(data);
     }
   };
   //creating new anchor and saving to the db
   const handleCreate = (data) => {
-    setLoading(true);
+    if (userData.user) {
+      setLoading(true);
 
-    let d = {wp: data, owner: userData.user._id};
+      let d = {wp: data, owner: userData.user._id};
 
-    WordPhraseClientApi.saveWordPhrase(d).then((res) => {
-      var sd = {
-        _id: res.data.data._id,
-        wp: res.data.data.wp,
-        __v: res.data.data.__v,
-        owner: res.data.data.owner,
-        label: res.data.data.wp,
-        value: res.data.data.wp,
-      };
-      if (setDomain) {
-        setValue(sd);
-        const obj = {domain: sd.wp};
-        setDomain(obj);
-      }
-      if (setFlow) {
-        setValue(sd);
-        const obj = {flow: sd.wp};
-        setFlow(obj);
-      }
-      if (setAddModuleData) {
-        setValue(sd);
-        setAddModuleData(sd);
-      }
-      setLoading(false);
-    });
+      WordPhraseClientApi.saveWordPhrase(d).then((res) => {
+        var sd = {
+          _id: res.data.data._id,
+          wp: res.data.data.wp,
+          __v: res.data.data.__v,
+          owner: res.data.data.owner,
+          label: res.data.data.wp,
+          value: res.data.data.wp,
+        };
+        if (setDomain) {
+          setValue(sd);
+          const obj = {domain: sd.wp};
+          setDomain(obj);
+        }
+        if (setFlow) {
+          setValue(sd);
+          const obj = {flow: sd.wp};
+          setFlow(obj);
+        }
+        if (setAddModulesData) {
+          setValue(sd);
+          setAddModulesData(sd);
+        }
+        setLoading(false);
+      });
+    } else {
+      alert('Please log in');
+    }
   };
 
   //handle ooChange function for edit data form
@@ -182,7 +186,15 @@ const WordPhrase = ({
       <div className="select-wrapper">
         <div>
           <div className="form-wrapper">
-            <p>{heading ? heading : 'word phrase'}</p>
+            <p>
+              {heading ? (
+                <>
+                  <b> {heading}</b>
+                </>
+              ) : (
+                'word phrase'
+              )}
+            </p>
             {/* this is the form where we can update the value this will appear when we click on the edit button by setEdit(true) */}
             {edit && value ? (
               <>

@@ -54,7 +54,11 @@ const ContextFlow = () => {
         ) : null}
       </div>
       <div className="user-container">
-        {userData.user ? <p>Username: {userData.user.name}</p> : null}
+        {userData.user ? (
+          <p>
+            Username : <b>{userData.user.name}</b>{' '}
+          </p>
+        ) : null}
       </div>
       {addModule ? (
         <>
@@ -70,10 +74,13 @@ const ContextFlow = () => {
       </div>
       <div className="context-wrapper">
         <div className="head-wrapper">
-          <p>{domain_anchor ? domain_anchor.anchor : 'Domain'}</p>
-          <p>{flow_anchor ? flow_anchor.anchor : 'Flow'}</p>
+          <p>{domain_anchor ? <b> {domain_anchor.anchor} </b> : 'Domain'}</p>
+          <p>{flow_anchor ? <b>{flow_anchor.anchor} </b> : 'Flow'}</p>
           <div className="sub-head">
-            <p>Model Entity</p>
+            <p>
+              {' '}
+              <b>Model Entity</b>
+            </p>
             <div className="button-container">
               {!add && !addModule ? (
                 <Button onClick={() => Context()}>+</Button>

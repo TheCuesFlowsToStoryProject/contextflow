@@ -18,33 +18,36 @@ const AddContext = ({setAdd, setError}) => {
   var ModelEntity = model_entity.map(function (item) {
     return item['wp'];
   });
-
   const saveContext = async () => {
-    if (
-      domain &&
-      flow &&
-      flow_anchor &&
-      domain_anchor &&
-      userData.user &&
-      user_anchor &&
-      model_entity.length > 0
-    ) {
-      let d = [
-        domain,
-        flow,
-        {FlowAnchor: flow_anchor.anchor},
-        {DomainAnchor: domain_anchor.anchor},
-        {UserAnchor: user_anchor.anchor},
-        {uid: userData.user._id},
-        ModelEntity,
-      ];
+    if (userData.user) {
+      if (
+        domain &&
+        flow &&
+        flow_anchor &&
+        domain_anchor &&
+        userData.user &&
+        user_anchor &&
+        model_entity.length > 0
+      ) {
+        let d = [
+          domain,
+          flow,
+          {FlowAnchor: flow_anchor.anchor},
+          {DomainAnchor: domain_anchor.anchor},
+          {UserAnchor: user_anchor.anchor},
+          {uid: userData.user._id},
+          ModelEntity,
+        ];
 
-      saveContextFlow(d).then((res) => {
-        setError(res.data.err);
-        setAdd(false);
-      });
+        saveContextFlow(d).then((res) => {
+          setError(res.data.err);
+          setAdd(false);
+        });
+      } else {
+        alert('Plesae select all the field');
+      }
     } else {
-      alert('Plesae select all the field');
+      alert('Please log in');
     }
   };
 
