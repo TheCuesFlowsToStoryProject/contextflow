@@ -1,10 +1,10 @@
-import React, {useState, useEffect, useContext} from 'react';
-import CreatableSelect from 'react-select/creatable';
-import WordPhraseClientApi from '../../client-api/word-phrase';
-import {UserContext} from '../../provider/UserProvider';
-import {Form, Button} from 'react-bootstrap';
-import toastr from 'toastr';
-import './Wordphrase.css';
+import React, { useState, useEffect, useContext } from "react";
+import CreatableSelect from "react-select/creatable";
+import WordPhraseClientApi from "../../client-api/word-phrase";
+import { UserContext } from "../../provider/UserProvider";
+import { Form, Button } from "react-bootstrap";
+import toastr from "toastr";
+import "./Wordphrase.css";
 
 const WordPhrase = ({
   name,
@@ -27,7 +27,6 @@ const WordPhrase = ({
   const [dataToBeChange, setDataChange] = useState();
   const [selected, isSelected] = useState(false);
   const [IsDelete, SetDelete] = useState(false);
-
   useEffect(() => {
     if (value !== null) {
       setDataChange(value.wp);
@@ -63,7 +62,7 @@ const WordPhrase = ({
     if (user) {
       setLoading(true);
 
-      let d = {wp: data, owner: user._id};
+      let d = { wp: data, owner: user._id };
 
       WordPhraseClientApi.saveWordPhrase(d).then((res) => {
         var sd = {
@@ -76,12 +75,12 @@ const WordPhrase = ({
         };
         if (setDomain) {
           setValue(sd);
-          const obj = {domain: sd.wp};
+          const obj = { domain: sd.wp };
           setDomain(obj);
         }
         if (setFlow) {
           setValue(sd);
-          const obj = {flow: sd.wp};
+          const obj = { flow: sd.wp };
           setFlow(obj);
         }
         if (setAddModulesData) {
@@ -91,7 +90,7 @@ const WordPhrase = ({
         setLoading(false);
       });
     } else {
-      alert('Please log in');
+      alert("Please log in");
     }
   };
 
@@ -146,12 +145,12 @@ const WordPhrase = ({
         };
         if (setDomain) {
           setValue(sd);
-          const obj = {domain: sd.wp};
+          const obj = { domain: sd.wp };
           setDomain(obj);
         }
         if (setFlow) {
           setValue(sd);
-          const obj = {flow: sd.wp};
+          const obj = { flow: sd.wp };
           setFlow(obj);
         }
         setValue(sd);
@@ -193,7 +192,7 @@ const WordPhrase = ({
                   <b> {heading}</b>
                 </>
               ) : (
-                'word phrase'
+                "word phrase"
               )}
             </p>
             {/* this is the form where we can update the value this will appear when we click on the edit button by setEdit(true) */}
@@ -205,14 +204,14 @@ const WordPhrase = ({
                       type="text"
                       name="component"
                       onChange={handleAnchorChange}
-                      value={dataToBeChange ? dataToBeChange : ''}
+                      value={dataToBeChange ? dataToBeChange : ""}
                       placeholder="Edit Anchor"
                     />
                   </Form.Group>
 
                   <Button
                     variant="success"
-                    style={{margin: '5px'}}
+                    style={{ margin: "5px" }}
                     form="edit-form"
                     type="submit"
                   >
@@ -228,20 +227,20 @@ const WordPhrase = ({
 
             {IsDelete && value ? (
               <>
-                {' '}
+                {" "}
                 <Form id="delete-form" onSubmit={deleteAnchor}>
                   <Form.Group>
                     <Form.Control
                       type="text"
                       name="components"
-                      value={dataToBeChange ? dataToBeChange : ''}
+                      value={dataToBeChange ? dataToBeChange : ""}
                       placeholder="Edit Anchor"
                       disabled
                     />
                   </Form.Group>
                   <Button
                     variant="danger"
-                    style={{margin: '5px'}}
+                    style={{ margin: "5px" }}
                     form="delete-form"
                     type="submit"
                   >
@@ -256,7 +255,7 @@ const WordPhrase = ({
           </div>
           {/* this is the creatable components with some basic inline css */}
           <div className="select-inner-wrapper">
-            <div style={{marginBottom: '30px'}}>
+            <div style={{ marginBottom: "30px" }}>
               {isMulti ? (
                 <CreatableSelect
                   maxMenuHeight={200}
@@ -290,7 +289,7 @@ const WordPhrase = ({
                       <button
                         className="demo"
                         variant="success"
-                        style={{margin: '5px'}}
+                        style={{ margin: "5px" }}
                         onClick={() => setEdit(true)}
                       >
                         Edit
