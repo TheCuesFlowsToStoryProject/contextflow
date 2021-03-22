@@ -7,10 +7,10 @@ const WordPhrase = require('../model/WordPhrase');
 
 router.post('/post-wordphrase', async (req, res) => {
   const data = req.body;
-  const Wordphrase = new WordPhrase({
+  const Wordphrase = new WordPhrase({                    
     wp: data.wp,
     owner: data.owner,
-  });
+  });                  //pp how do  check thw word does not exist already ?
   Wordphrase.save()
     .then((response) => {
       res.send({data: response});
@@ -47,7 +47,7 @@ router.delete('/wordphrase/delete', async (req, res) => {
 
 router.put('/wordphrase/update', async (req, res) => {
   const data = req.body;
-  var id = ObjectId(data.id);
+  var id = ObjectId(data.id);     //pp is this route being used so far ?
   var check = await WordPhrase.find({
     $and: [{owner: data.owner}, {_id: id}],
   });
