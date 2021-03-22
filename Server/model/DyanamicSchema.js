@@ -12,7 +12,7 @@ var method = {
     );
     return mongoose.model(collection_name, AnAnchorSchema);
   },
-  getAnchorModel: function (collection_name) {
+  getAnchorModel: function (collection_name) {        //pp give an example where this method is used
     if (!Anchors[collection_name]) {
       Anchors[collection_name] = new method.DynamicSchema(collection_name);
     }
