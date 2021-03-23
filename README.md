@@ -18,8 +18,8 @@ We are building on two basic JSON structures :
 	"atttentionentities": [
 		"55xxxxxx999", "55xxxxxx999", "55xxxxxx555", "55xxxxxx555"
 	],
-	"flow": "55xxxxxx999",
-	"domain": "55xxxxxx555",
+	"flow": "55rtxxxxx999",
+	"domain": "55jdxxxxx555",
 	"flow anchor": "smart service",
 	"domain anchor": "data sets"
 }]
