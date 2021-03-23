@@ -19,7 +19,9 @@ We are building on two basic JSON structures :
 		"55xxxxxx999", "55xxxxxx999", "55xxxxxx555", "55xxxxxx555"
 	],
 	"flow": "55xxxxxx999",
-	"domain": "55xxxxxx555"
+	"domain": "55xxxxxx555",
+	"flow anchor": "smart service",
+	"domain anchor": "data sets"
 }]
 
 
