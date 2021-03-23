@@ -3,7 +3,7 @@ import ContextFirstRow from "./ContextFirstRow";
 const ContextRow = ({ context, setRefresh }) => {
   return (
     <div>
-      <ContextFirstRow context={context} setRefresh={setRefresh} />
+      <ContextFirstRow context={context} setRefresh={setRefresh} />   //pp  what does contextrow  does that contextfirstrow does not ?
     </div>
   );
 };
