@@ -1,7 +1,8 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import "../context_flow.css";
-import ContextEntry from "./ContextEntry";
+import ContextEntry from "./ContextEntry";    //pp Where are you using contexyEntry ? , conceptually there should be a for loop going as many times as the
+                                              // number of current entities ; whole ida of component is to avoid the repeat code of 12 times in this module 
 const ContextBunch = ({
   context,
   addModule,
