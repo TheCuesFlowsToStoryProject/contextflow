@@ -6,10 +6,12 @@ We are building on two basic JSON structures :
 
 [
 {"phraseid" : "764443sxsx",
- "phrase" : "delivery date" 
+ "phrase" : "delivery date" ,
+ "owner":"uuu"
 },
 {"phraseid" : "8764443sx9x"
- "phrase" : "pay as you go" 
+ "phrase" : "pay as you go" ,
+ "owner: : "vvvvv"
 } 
 ]
 
@@ -21,7 +23,8 @@ We are building on two basic JSON structures :
 	"flow": "55rtxxxxx999",
 	"domain": "55jdxxxxx555",
 	"flow anchor": "smart service",
-	"domain anchor": "data sets"
+	"domain anchor": "data sets",
+	"owner":"bbbb"
 }]
 
 
