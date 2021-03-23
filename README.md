@@ -31,4 +31,4 @@ We are building on two basic JSON structures :
 The above structure can translate to mongo DB , where the collection indexes are set up as below:
 
 1. For WordphrasesCollection, phrasedid and phrase are both indexed as unique index ; 
-2. For ContextCollection , contextid is indexed unique , flow+domian is a compund unique index ; attentionentities is an indexed array field as described here for tags: https://docs.mongodb.com/manual/tutorial/query-arrays/ . The above approach does not put upfront limit on how many attentionentities are present in the contextcollection doument.
+2. For ContextCollection , contextid is indexed unique , domain+flow is a compund unique index ; attentionentities is an indexed array field as described here for tags: https://docs.mongodb.com/manual/tutorial/query-arrays/ . The above approach does not put upfront limit on how many attentionentities are present in the contextcollection doument.
