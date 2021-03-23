@@ -23,8 +23,8 @@ router.delete('/delete', async (req, res) => {
     });
   }
 });
-router.get('/contexts', async (req, res) => {
-  const objs = await Context.find();
+router.get('/contexts', async (req, res) => {  //pp we need total revisit here. Fact is we should be relying on mongodb array index to find the desired entry
+  const objs = await Context.find();           // getting all contexts docs first and then looking for a match is not sustainable for large data
 
   if (objs) {
     (async () => {
