@@ -33,26 +33,19 @@ const ContextFirstRow = ({ context, setRefresh }) => {
           </div>
           <div>
             <div className="wp-holder">
-              {contxt.atn1 ? (
-                <>
-                  <li>{contxt.atn1}</li>
-                  <div className="button-container">
-                    <Button
-                      variant="warning"
-                      onClick={() => {
-                        add_module(contxt);
-                      }}
-                      className="change-button"
-                    >
-                      +
-                    </Button>
-                    <Button variant="success" className="change-button">
-                      C
-                    </Button>
-                    <Button variant="danger">D</Button>
-                  </div>
-                </>
-              ) : null}
+              <>
+                <div className="button-container">
+                  <Button
+                    variant="warning"
+                    onClick={() => {
+                      add_module(contxt);
+                    }}
+                    className="change-button"
+                  >
+                    +
+                  </Button>
+                </div>
+              </>
             </div>
           </div>
         </ul>
@@ -71,37 +64,3 @@ const ContextFirstRow = ({ context, setRefresh }) => {
   );
 };
 export default ContextFirstRow;
-
-{
-  /* <div>
-<li>{context.domain}</li>
-</div>
-<div>
-<li>{context.flow}</li>
-</div>
-<div>
-<div className="wp-holder">
-  {context.atn1 ? (
-    <>
-      
-      <li>{context.atn1}</li>
-      <div className="button-container">
-        <Button
-          variant="warning"
-          onClick={() => {
-            add_module(context);
-          }}
-          className="change-button"
-        >
-          
-          +
-        </Button>
-        <Button variant="success" className="change-button">
-          C
-        </Button>
-        <Button variant="danger">D</Button>
-      </div>
-    </>
-  ) : null}
-</div> */
-}

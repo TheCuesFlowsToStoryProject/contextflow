@@ -14,29 +14,15 @@ const ContextEntry = ({ setAddModule, atn, setRefresh, contextData }) => {
   const AddContextEntry = async () => {
     if (user) {
       if (data) {
-        const arrl = Object.entries(contextData);
-        var arr = [];
-        arrl.filter(([key, value]) => {
-          if (key.includes("atn")) {
-            arr.push(value);
-          }
-        });
-
-        var n = arr.includes(data.wp);
-      }
-      if (!n) {
-        if (data && contextData && atn && user) {
-          const user_id = user._id;
-          const owner_id = contextData.uid;
-          if (user_id === owner_id) {
-            var index = atn + 1;
-            const obj1 = {
-              value: data._id,
+        const check_entity = contextData.atttentionentities.includes(data.wp);
+        if (!check_entity) {
+          if (user._id === contextData.owner) {
+            var obj = {
               contextId: contextData._id,
-              owner: user_id,
-              key: `atn${index}`,
+              wpId: data._id,
+              currentUser: user._id,
             };
-            updateContextFlowById(obj1)
+            updateContextFlowById(obj)
               .then((res) => {
                 setAddModule(false);
                 setError(res.data.err);
@@ -47,13 +33,13 @@ const ContextEntry = ({ setAddModule, atn, setRefresh, contextData }) => {
                 setRefresh(err);
               });
           } else {
-            alert("only owner can update");
+            alert("only owner can add");
           }
         } else {
-          alert("please select one module entity");
+          alert("this model entity is already exists");
         }
       } else {
-        alert("This Module Entity already exist");
+        alert("please select an entity");
       }
     } else {
       alert("Please log in");

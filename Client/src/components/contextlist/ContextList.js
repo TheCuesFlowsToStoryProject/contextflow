@@ -15,14 +15,27 @@ const ContextFlow = () => {
   const [refresh, setRefresh] = useState(false);
   const value = useContext(UserContext);
   const [userData] = value.user;
+
+  var flow_anchor = JSON.parse(sessionStorage.getItem("FlowAnchor"));
+  var domain_anchor = JSON.parse(sessionStorage.getItem("DomainAnchor"));
+  var user_anchor = JSON.parse(sessionStorage.getItem("UserAnchor"));
+  const flowAnchor = flow_anchor ? flow_anchor.anchor : "flow";
+  const domainAnchor = domain_anchor ? domain_anchor.anchor : "domain";
+  const userAnchor = user_anchor ? user_anchor.anchor : "base";
+
   useEffect(() => {
     (async () => {
-      const data = await getAllContextFlow();
+      const anchorObj = {
+        flowAnchor: flowAnchor,
+        domainAnchor: domainAnchor,
+        userAnchor: userAnchor,
+      };
+      const data = await getAllContextFlow(anchorObj);
       setContextData(data.data.arr);
     })();
   }, [setAdd, add, addModule, setAddModule, refresh]);
 
-  var user_anchor = JSON.parse(sessionStorage.getItem("UserAnchor"));
+  // var user_anchor = JSON.parse(sessionStorage.getItem("UserAnchor"));
 
   const user = userData.user !== undefined ? userData.user : userData.user2;
 
