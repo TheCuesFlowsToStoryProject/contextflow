@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const ContextFlowSchema = new Schema({
   contexts: {
@@ -6,4 +6,4 @@ const ContextFlowSchema = new Schema({
     default: {},
   },
 });
-module.exports = mongoose.model('context', ContextFlowSchema);
+module.exports = mongoose.model("context", ContextFlowSchema);

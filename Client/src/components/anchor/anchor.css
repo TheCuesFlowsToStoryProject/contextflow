@@ -3,3 +3,16 @@
   margin: auto;
   text-align: center;
 }
+.anchor-wrapper {
+  width: 70%;
+
+  margin: auto;
+}
+@media screen and (max-width: 480px) {
+  .anchor {
+    width: 100%;
+  }
+  .anchor-wrapper {
+    width: 100%;
+  }
+}

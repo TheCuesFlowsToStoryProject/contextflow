@@ -6,6 +6,8 @@ const client = axios.create({
 });
 
 export const saveContextFlow = (payload) => client.post(`/context`, payload);
+export const saveContextType = (payload) =>
+  client.post(`/context-type`, payload);
 export const getAllContextFlow = (payload) =>
   client.get(`/contexts`, { params: { payload } });
 export const updateContextFlowById = (payload) =>
@@ -14,6 +16,8 @@ export const updateContextFlowByDrag = (payload) =>
   client.put(`/shuffle-entity`, payload);
 export const removeAttentionEntities = (payload) =>
   client.put(`/remove-attention`, payload);
+export const changeContextById = (payload) =>
+  client.put(`/change-context`, payload);
 // export const deleteContextFlowById = (payload) =>
 //   client.delete('/contextflow/delete', {data: payload});
 
@@ -23,7 +27,7 @@ const ContextFlowClientApi = {
   updateContextFlowById,
   updateContextFlowByDrag,
   removeAttentionEntities,
-  //   deleteContextFlowById,
+  saveContextType,
 };
 
 export default ContextFlowClientApi;

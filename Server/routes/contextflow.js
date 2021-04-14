@@ -25,13 +25,16 @@ router.delete("/delete", async (req, res) => {
 });
 router.get("/contexts", async (req, res) => {
   const anchorData = JSON.parse(req.query.payload);
-  var objs = await Context.find({
-    $and: [
-      { "contexts.FlowAnchor": anchorData.flowAnchor },
-      { "contexts.DomainAnchor": anchorData.domainAnchor },
-      { "contexts.UserAnchor": anchorData.userAnchor },
-    ],
-  });
+  var objs;
+  anchorData.anchor
+    ? (objs = await Context.find({}))
+    : (objs = await Context.find({
+        $and: [
+          { "contexts.FlowAnchor": anchorData.flowAnchor },
+          { "contexts.DomainAnchor": anchorData.domainAnchor },
+          { "contexts.UserAnchor": anchorData.userAnchor },
+        ],
+      }));
 
   if (objs) {
     (async () => {
@@ -46,6 +49,8 @@ router.get("/contexts", async (req, res) => {
           } else if (j === "DomainAnchor") {
             obj3[j] = i.contexts[j];
           } else if (j === "UserAnchor") {
+            obj3[j] = i.contexts[j];
+          } else if (j === "type") {
             obj3[j] = i.contexts[j];
           } else if (j === "atttentionentities") {
             var attention = [];
@@ -63,6 +68,8 @@ router.get("/contexts", async (req, res) => {
             obj3[j] = s.wp;
           } else if (j === "owner") {
             obj3[j] = i.contexts[j];
+          } else if (j === "contexttype") {
+            obj3[j] = i.contexts[j];
           }
         }
 
@@ -76,6 +83,7 @@ router.get("/contexts", async (req, res) => {
 
 router.post("/context", (req, res) => {
   const data = req.body;
+
   const arr = [];
   const atttentionentities = [];
   var UID = data.find(({ uid }) => uid);
@@ -148,9 +156,14 @@ router.post("/context", (req, res) => {
                 user_anchor: d.UserAnchor,
               };
               arr.push(user_anchor_obj);
-            } else {
+            } else if (obj_name === "uid") {
               const j = { uid: d.uid };
               arr.push(j);
+            } else if (obj_name === "contexttype") {
+              const context_type = {
+                contexttype: d.contexttype,
+              };
+              arr.push(context_type);
             }
           }
         }
@@ -284,6 +297,67 @@ router.put("/remove-attention", async (req, res) => {
     return res.send({ err: "only owner can update" });
   }
 });
+router.put("/change-context", async (req, res) => {
+  const data = req.body;
+  var contxtId = mongoose.Types.ObjectId(data.contextId);
+  var checkData = await Context.find({
+    $and: [{ "contexts.owner": data.user }, { _id: contxtId }],
+  });
+  if (checkData.length > 0) {
+    const old_one = await getIds(data.old_entity);
+    const domainId = await getIds(data.domain);
+    const flowId = await getIds(data.flow);
+    const modelEntityId = await getIds(data.model_entity);
+    const contxt = checkData[0];
+    var atnentities = contxt.contexts.atttentionentities;
+    var counts = 0;
+    for (let d of atnentities) {
+      if (d.equals(old_one._id)) {
+        atnentities[counts] = modelEntityId._id;
+        break;
+      }
+      counts = counts + 1;
+    }
+    contxt.contexts.flow = flowId._id;
+    contxt.contexts.domain = domainId._id;
+    contxt.contexts.contexttype = data.contexttype;
+    const modelContext = new Context(contxt);
+    modelContext
+      .save()
+      .then((response) => {
+        res.send({ json: "contxt saved successfully" });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.send({ msg: "contxt saved successfully" });
+      });
+  } else {
+    return res.send({ err: "only owner can update" });
+  }
+});
+
+router.post("/context-type", async (req, res) => {
+  const data = req.body;
+  var checkData = await Context.find({
+    $and: [{ "contexts.owner": data.user }, { _id: data.context._id }],
+  });
+  if (checkData.length > 0) {
+    const contxt = checkData[0];
+    contxt.contexts["type"] = data.context.type;
+    const modelContext = new Context(contxt);
+    modelContext
+      .save()
+      .then((response) => {
+        res.send({ json: "contxt saved successfully" });
+      })
+      .catch((error) => {
+        console.log(error);
+        res.send({ msg: "contxt saved successfully" });
+      });
+  } else {
+    return res.send({ err: "only owner can update" });
+  }
+});
 
 function createObject(arr, atntn) {
   const obj = {};
@@ -302,6 +376,8 @@ function createObject(arr, atntn) {
       obj["UserAnchor"] = i.user_anchor;
     } else if (ind === "uid") {
       obj["owner"] = i.uid;
+    } else if (ind === "contexttype") {
+      obj["contexttype"] = i.contexttype;
     }
   }
   return obj;
@@ -339,20 +415,6 @@ function getWordphrasesById(id) {
   });
 }
 
-// async function checkAnchor(d) {
-//   var key_name = Object.keys(d).toString();
-//   var value = Object.values(d).toString();
-//   const modelName = await Ds.data.getAnchorModel(key_name);
-//   const check = await modelName.exists({ anchor: value });
-//   if (check) {
-//     return modelName.findOne({ anchor: value });
-//   } else {
-//     var newAnchor = new modelName();
-//     newAnchor.anchor = value;
-//     newAnchor.save();
-//     return newAnchor;
-//   }
-// }
 async function getAnchorByID(data) {
   const modelName = await Ds.data.getAnchorModel(data.model_name);
   return modelName.findById(data.id).then((res) => {

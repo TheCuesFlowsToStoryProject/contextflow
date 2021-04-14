@@ -1,9 +1,11 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
 import ContextBunch from "./ContextBunch";
+import "../context_flow.css";
+import { Container, Row, Col, Button } from "react-bootstrap";
 const ContextFirstRow = ({ context, setRefresh }) => {
   var contxts = [context];
   const [addModule, setAddModule] = useState(false);
+  const [contxtType, setContxtType] = useState(false);
   const [atn, setAtn] = useState();
   const [contexts, setContexts] = useState();
   const add_module = async (context) => {
@@ -18,22 +20,21 @@ const ContextFirstRow = ({ context, setRefresh }) => {
     setContexts(context);
   };
   return (
-    <div>
+    <Container fluid>
       {contxts.map((contxt, i) => (
-        <ul
-          key={i}
-          className="module-containers"
-          style={{ background: "#ccf2ff" }}
-        >
-          <div>
-            <li>{contxt.domain}</li>
-          </div>
-          <div>
-            <li>{contxt.flow}</li>
-          </div>
-          <div>
-            <div className="wp-holder">
+        <Row key={i} style={{ background: "#ccf2ff" }}>
+          <Col xs={3}>
+            <li className="d-f-container">{contxt.domain}</li>
+          </Col>
+          <Col xs={3}>
+            <li className="d-f-container">{contxt.flow}</li>
+          </Col>
+          <Col xs={6}>
+            <div className="type-holder">
               <>
+                <div className="type">
+                  {<p className="typedata"> {contxt.contexttype}</p>}
+                </div>
                 <div className="button-container">
                   <Button
                     variant="warning"
@@ -47,11 +48,12 @@ const ContextFirstRow = ({ context, setRefresh }) => {
                 </div>
               </>
             </div>
-          </div>
-        </ul>
+          </Col>
+        </Row>
       ))}
       <div>
         <ContextBunch
+          setContxtType={setContxtType}
           context={context}
           addModule={addModule}
           atn={atn}
@@ -60,7 +62,7 @@ const ContextFirstRow = ({ context, setRefresh }) => {
           setRefresh={setRefresh}
         />
       </div>
-    </div>
+    </Container>
   );
 };
 export default ContextFirstRow;

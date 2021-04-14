@@ -3,7 +3,9 @@ import "./header.css";
 import { Link } from "react-router-dom";
 import { UserContext } from "../../provider/UserProvider";
 import { useHistory } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
 import logo from "../../assets/logo.png";
+
 const Header = () => {
   const history = useHistory();
   const value = useContext(UserContext);
@@ -23,36 +25,80 @@ const Header = () => {
     history.push("/");
   };
   return (
-    <div className="header-wrapper">
-      <div className="logo-wrapper">
+    <Navbar collapseOnSelect expand="lg" className="nav" variant="dark">
+      <Navbar.Brand>
         <Link style={{ textDecoration: "none" }} to="/">
           <img className="logo-wrapper" src={logo} alt="logo" />
         </Link>
-      </div>
-      <div className="navbar">
-        <ul>
-          <Link style={{ textDecoration: "none" }} to="/contextlist">
-            <li>Context List</li>
-          </Link>
-          <Link style={{ textDecoration: "none" }} to="/anchor">
-            <li>Anchor</li>
-          </Link>
+      </Navbar.Brand>
+      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+      <Navbar.Collapse id="responsive-navbar-nav">
+        <Nav className="mr-auto">
+          <Nav.Link
+            as={Link}
+            to="/contextlist"
+            style={{
+              textDecoration: "none",
+              color: "white",
+              fontSize: "15px",
+            }}
+          >
+            Context List
+          </Nav.Link>
+
+          <Nav.Link
+            as={Link}
+            to="/anchor"
+            style={{
+              textDecoration: "none",
+              color: "white",
+              fontSize: "15px",
+            }}
+          >
+            Anchor
+          </Nav.Link>
+          <Nav.Link
+            as={Link}
+            to="/search-context"
+            style={{
+              textDecoration: "none",
+              color: "white",
+              fontSize: "15px",
+            }}
+          >
+            Search context
+          </Nav.Link>
+        </Nav>
+        <Nav>
           {userData.user ? (
             <>
-              <li style={{ cursor: "pointer" }} onClick={LogOut}>
+              <li
+                style={{
+                  cursor: "pointer",
+                  textDecoration: "none",
+                }}
+                onClick={LogOut}
+              >
                 Logout
               </li>
             </>
           ) : (
             <>
-              <Link style={{ textDecoration: "none" }} to="login">
+              <Nav.Link
+                as={Link}
+                to="login"
+                style={{
+                  cursor: "pointer",
+                  textDecoration: "none",
+                }}
+              >
                 <li>Sign in</li>
-              </Link>
+              </Nav.Link>
             </>
           )}
-        </ul>
-      </div>
-    </div>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   );
 };
 export default Header;

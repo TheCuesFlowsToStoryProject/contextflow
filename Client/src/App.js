@@ -9,6 +9,8 @@ import "bootstrap/dist/css/bootstrap.css";
 import "toastr/build/toastr.min.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import UserProvider from "./provider/UserProvider";
+import "./App.css";
+import SearchContext from "./components/contextlist/SearchContext";
 function App() {
   return (
     <div className="App">
@@ -21,6 +23,7 @@ function App() {
             <Route path="/contextlist" component={ContextList} />
             <Route path="/sign-up" component={SignUp} />
             <Route path="/login" component={LogIn} />
+            <Route path="/search-context" component={SearchContext} />
           </Switch>
         </BrowserRouter>
       </UserProvider>

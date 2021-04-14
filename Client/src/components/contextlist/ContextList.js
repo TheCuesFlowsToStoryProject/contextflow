@@ -6,6 +6,7 @@ import ErrorNotice from "../Notify/ErrorNotice";
 import { UserContext } from "../../provider/UserProvider";
 import AnchoredHeader from "./AnchoredHeader";
 import ContextRow from "./contextrow/ContextRow";
+import ResolutionPatternList from "./ResolutionPatternList";
 
 const ContextFlow = () => {
   const [error, setError] = useState();
@@ -34,11 +35,7 @@ const ContextFlow = () => {
       setContextData(data.data.arr);
     })();
   }, [setAdd, add, addModule, setAddModule, refresh]);
-
-  // var user_anchor = JSON.parse(sessionStorage.getItem("UserAnchor"));
-
   const user = userData.user !== undefined ? userData.user : userData.user2;
-
   return (
     <div className="main-containers">
       {error && (
@@ -48,6 +45,13 @@ const ContextFlow = () => {
         {user_anchor ? (
           <div className="user_anchor">
             <b>{user_anchor.anchor}</b>
+          </div>
+        ) : null}
+      </div>
+      <div>
+        {user_anchor ? (
+          <div className="user_anchor">
+            <ResolutionPatternList refresh={refresh} setRefresh={setRefresh} />
           </div>
         ) : null}
       </div>
