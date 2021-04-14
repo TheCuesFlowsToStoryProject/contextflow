@@ -61,8 +61,8 @@ const SearchContext = () => {
     }
   };
   return (
-    <Container fluid style={{ width: "85%" }}>
-      <Row>
+    <Container fluid>
+      <Row style={{ width: "85%", margin: "auto" }}>
         <Col lg={4} xs={12}>
           <Form>
             <Form.Group>
@@ -108,7 +108,11 @@ const SearchContext = () => {
             </Form.Group>
           </Form>
         </Col>
-        <Col style={{ marginLeft: "50%" }} xs={12} lg={12}>
+        <Col
+          style={{ marginLeft: "40%", marginBottom: "30px" }}
+          xs={12}
+          lg={12}
+        >
           <Button
             onClick={() => {
               searchContext();
@@ -119,7 +123,7 @@ const SearchContext = () => {
         </Col>
       </Row>
 
-      <div>
+      <div className="context-wrapper">
         <AnchoredHeader setAdd={setAdd} add={add} addModule={addModule} />
         {searchResults.map((context, index) => (
           <div key={index}>
