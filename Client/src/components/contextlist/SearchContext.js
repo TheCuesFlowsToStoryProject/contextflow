@@ -5,7 +5,6 @@ import ContextRow from "./contextrow/ContextRow";
 import { Container, Row, Col, Button, Form } from "react-bootstrap";
 import "./context_flow.css";
 import match from "autosuggest-highlight/match";
-import AddContext from "./AddNewContext";
 import _ from "lodash";
 const SearchContext = () => {
   const [searchDomain, setsearchDomain] = useState("");
@@ -14,9 +13,9 @@ const SearchContext = () => {
   const [atnentities, setAtnentities] = useState("");
   const [contextData, setContextData] = useState([]);
   const [add, setAdd] = useState(true);
-  const [addModule, setAddModule] = useState(false);
+  const [addModule] = useState(false);
   const [refresh, setRefresh] = useState(false);
-  const [error, setError] = useState();
+  // const [error, setError] = useState();
   const anchorObj = {
     anchor: "all",
   };
@@ -26,7 +25,7 @@ const SearchContext = () => {
       setContextData(data.data.arr);
       setSearchResults(data.data.arr);
     })();
-  }, []);
+  }, [refresh]);
 
   const handleSearchDomain = (event) => {
     setsearchDomain(event.target.value);
@@ -47,9 +46,8 @@ const SearchContext = () => {
           context.flow.toLowerCase().includes(searchFlow) &&
           context.atttentionentities.some((item) => {
             if (re.test(item)) {
-              const matches = match(item, atnentities);
+              match(item, atnentities);
               // item["parts"] = parse(item, matches);
-
               return true;
             } else {
               return false;

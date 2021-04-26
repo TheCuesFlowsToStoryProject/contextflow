@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import ContextBunch from "./ContextBunch";
 import "../context_flow.css";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import ChangeContext from "../ChangeContext";
 const ContextFirstRow = ({ context, setRefresh }) => {
+  const [change, setChange] = useState(false);
+  const [changeData, setChangeData] = useState();
   var contxts = [context];
   const [addModule, setAddModule] = useState(false);
   const [contxtType, setContxtType] = useState(false);
@@ -60,7 +63,21 @@ const ContextFirstRow = ({ context, setRefresh }) => {
           setAddModule={setAddModule}
           contexts={contexts}
           setRefresh={setRefresh}
+          setChange={setChange}
+          change={change}
+          setChangeData={setChangeData}
         />
+      </div>
+      <div>
+        {change ? (
+          <ChangeContext
+            setContxtType={setContxtType}
+            setRefresh={setRefresh}
+            context={context}
+            changeData={changeData}
+            setChange={setChange}
+          />
+        ) : null}
       </div>
     </Container>
   );

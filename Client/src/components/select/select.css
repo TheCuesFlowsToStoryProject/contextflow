@@ -1,39 +1,25 @@
 .select-wrapper {
-  width: 350px;
+  width: 340px;
+  text-align: center;
   margin: auto;
-  background: #f0efef;
-  color: #4f3222;
-  margin-top: 10px;
-  border: solid;
-}
-.select-type {
-  width: 260px;
-  height: 100px;
-  margin: auto;
-  background: #f0efef;
-  color: #4f3222;
-  margin-top: 10px;
-  border: solid;
-}
-.form-wrapper {
-  width: 300px;
-  width: auto;
-  margin: auto;
-}
-.select-inner-wrapper {
-  width: 350px;
-  margin: auto;
-  margin-bottom: 10px;
-}
-@media screen and (max-width: 480px) {
-  .select-wrapper {
-    width: 100%;
-    margin-left: 10px;
-  }
+  border-radius: 3%;
 }
 .button-wrapper {
-  display: "inline-flex";
-  margin-bottom: "35px";
+  height: 38px;
+}
+.creatable {
+  margin-bottom: 40px;
+  margin-left: 20px;
+}
+.border-button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  height: auto;
+  width: auto;
+  color: #03090e;
+  font-size: 1em;
+  border: 2px solid #3498db;
 }
 .trnsparent-button {
   cursor: pointer;
@@ -45,13 +31,8 @@
   font-size: 1em;
   border-bottom: 1px solid #3498db;
 }
-.border-button {
-  cursor: pointer;
-  border: none;
-  background-color: transparent;
-  height: auto;
-  width: auto;
-  color: #03090e;
-  font-size: 1em;
-  border: 2px solid #3498db;
+@media screen and (max-width: 480px) {
+  .select-wrapper {
+    width: 300px;
+  }
 }

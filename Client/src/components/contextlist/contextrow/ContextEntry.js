@@ -9,7 +9,7 @@ const ContextEntry = ({ setAddModule, atn, setRefresh, contextData }) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState();
   const value = useContext(UserContext);
-  const [userData, setUserData] = value.user;
+  const [userData] = value.user;
   const user = userData.user !== undefined ? userData.user : userData.user2;
   const AddContextEntry = async () => {
     if (user) {

@@ -85,10 +85,15 @@
 }
 /* context bunch */
 .atn-content {
-  width: 400px;
+  width: 350px;
   list-style: none;
   margin-left: 15%;
   margin-top: 15px;
+}
+@media (max-width: 1190px) {
+  .atn-content {
+    width: 100px;
+  }
 }
 /* context first row */
 
@@ -119,11 +124,11 @@
 }
 @media (max-width: 478px) {
   .atn-content {
-    width: 50px;
+    width: 40px;
     margin-left: 15px;
   }
   .d-f-container {
-    width: 40px;
+    width: 50px;
   }
   .type-holder {
     width: 153px;

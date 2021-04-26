@@ -18,12 +18,18 @@ export const removeAttentionEntities = (payload) =>
   client.put(`/remove-attention`, payload);
 export const changeContextById = (payload) =>
   client.put(`/change-context`, payload);
+/////context values
+export const saveContextValue = (payload) =>
+  client.post(`/context-value`, payload);
+export const getContextValue = (payload) =>
+  client.get(`/get-context-value`, { params: { payload } });
 // export const deleteContextFlowById = (payload) =>
 //   client.delete('/contextflow/delete', {data: payload});
 
 const ContextFlowClientApi = {
   getAllContextFlow,
   saveContextFlow,
+  saveContextValue,
   updateContextFlowById,
   updateContextFlowByDrag,
   removeAttentionEntities,

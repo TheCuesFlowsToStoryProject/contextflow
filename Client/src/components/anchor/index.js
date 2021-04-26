@@ -4,7 +4,7 @@ import "./anchor.css";
 import ErrorNotice from "../Notify/ErrorNotice";
 import { saveResolutionPattern } from "../../client-api/anchor";
 import { getResolutionPattern } from "../../client-api/anchor";
-import { Container, Row, Col, Button, Form } from "react-bootstrap";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 const Anchor = () => {
   const [domain, setDomain] = useState();
@@ -13,13 +13,13 @@ const Anchor = () => {
   const [user, setUser] = useState();
   const [error, setError] = useState();
   const [ResolutionPattern, setResolutionPattern] = useState();
-  const [savePattern, setPattern] = useState(false);
+  // const [savePattern, setPattern] = useState(false);
   const [data, setData] = useState([]);
   const [domainValue, setDomainValue] = useState();
   const [flowValue, setFlowValue] = useState();
   const savePatternToDb = () => {
     if (domain && flow && ResolutionPattern && user) {
-      setPattern(true);
+      // setPattern(true);
       var obj = {
         domainAnchor: domain.anchor,
         flowAnchor: flow.anchor,
@@ -72,7 +72,7 @@ const Anchor = () => {
   }, [data]);
 
   return (
-    <Container fluid>
+    <Container fluid style={{ background: "#f0efef" }}>
       {error && (
         <ErrorNotice message={error} clearError={() => setError(undefined)} />
       )}
@@ -96,31 +96,35 @@ const Anchor = () => {
           <b>Flow Anchor:{flow.anchor}</b>
         </div>
       ) : null}
-      <Row>
-        <Col xs={12} lg={12}>
+      <Row className="anchor-row">
+        <Col xs={12} lg={6} style={{ marginBottom: "30px" }}>
           <SelectCurd
+            background={"navajowhite"}
             setResolution={setResolution}
             anchorType={"UserAnchor"}
             setUser={setUser}
           />
         </Col>
-        <Col xs={12} lg={12}>
+        <Col xs={12} lg={6} style={{ marginBottom: "30px" }}>
           <SelectCurd
+            background={"MediumSeaGreen"}
             anchorType={"ResolutionPattern"}
             setResolutionPattern={setResolutionPattern}
             setResolution={setResolution}
           />
         </Col>
-        <Col xs={12} lg={12}>
+        <Col xs={12} lg={6} style={{ marginBottom: "30px" }}>
           <SelectCurd
+            background={"SlateBlue"}
             anchorType={"DomainAnchor"}
             setDomain={setDomain}
             setResolution={setResolution}
             domainValue={domainValue}
           />
         </Col>
-        <Col xs={12} lg={12}>
+        <Col xs={12} lg={6} style={{ marginBottom: "70px" }}>
           <SelectCurd
+            background={"violet"}
             anchorType={"FlowAnchor"}
             setFlow={setFlow}
             setResolution={setResolution}

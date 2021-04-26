@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import CreatableSelect from "react-select/creatable";
 import WordPhraseClientApi from "../../client-api/word-phrase";
 import { UserContext } from "../../provider/UserProvider";
-import { Form, Button } from "react-bootstrap";
+import { Row, Form } from "react-bootstrap";
 import toastr from "toastr";
 import "./Wordphrase.css";
 
@@ -18,10 +18,11 @@ const WordPhrase = ({
   setSelectDomain,
   setSelectFlow,
   setSelectmodelEntity,
-  model_entity,
+  // model_entity,
+  background,
 }) => {
   const user_data = useContext(UserContext);
-  const [userData, setUserData] = user_data.user;
+  const [userData] = user_data.user;
   const user = userData.user !== undefined ? userData.user : userData.user2;
 
   const [data, setData] = useState([]);
@@ -217,138 +218,141 @@ const WordPhrase = ({
     }),
   };
   return (
-    <div>
-      <div className="select-wrapper">
-        <div>
-          <div className="form-wrapper">
-            <p>
-              {heading ? (
-                <>
-                  <b> {heading}</b>
-                </>
-              ) : (
-                "word phrase"
-              )}
-            </p>
-            {/* this is the form where we can update the value this will appear when we click on the edit button by setEdit(true) */}
-            {edit && value ? (
+    <div
+      className="select-wrapper-2"
+      style={{ background: background ? background : "blue" }}
+    >
+      <div>
+        <div className="form-wrapper-2">
+          <p>
+            {heading ? (
               <>
-                <Form id="edit-form" onSubmit={updateAnchor}>
-                  <Form.Group>
-                    <Form.Control
-                      type="text"
-                      name="component"
-                      onChange={handleAnchorChange}
-                      value={dataToBeChange ? dataToBeChange : ""}
-                      placeholder="Edit Anchor"
-                    />
-                  </Form.Group>
-
-                  <button
-                    className="border-button"
-                    style={{ margin: "5px" }}
-                    form="edit-form"
-                    type="submit"
-                  >
-                    save
-                  </button>
-
-                  <button
-                    className="border-button"
-                    onClick={() => setEdit(false)}
-                  >
-                    cancel
-                  </button>
-                </Form>
+                <b> {heading}</b>
               </>
-            ) : null}
+            ) : (
+              "word phrase"
+            )}
+          </p>
+          {/* this is the form where we can update the value this will appear when we click on the edit button by setEdit(true) */}
+          {edit && value ? (
+            <>
+              <Form id="edit-form" onSubmit={updateAnchor}>
+                <Form.Group>
+                  <Form.Control
+                    type="text"
+                    name="component"
+                    onChange={handleAnchorChange}
+                    value={dataToBeChange ? dataToBeChange : ""}
+                    placeholder="Edit Anchor"
+                  />
+                </Form.Group>
+                <button
+                  className="border-button"
+                  style={{ margin: "5px" }}
+                  form="edit-form"
+                  type="submit"
+                >
+                  save
+                </button>
 
-            {IsDelete && value ? (
-              <>
-                {" "}
-                <Form id="delete-form" onSubmit={deleteAnchor}>
-                  <Form.Group>
-                    <Form.Control
-                      type="text"
-                      name="components"
-                      value={dataToBeChange ? dataToBeChange : ""}
-                      placeholder="Edit Anchor"
-                      disabled
-                    />
-                  </Form.Group>
-                  <button
-                    className="border-button"
-                    style={{ margin: "5px" }}
-                    form="delete-form"
-                    type="submit"
-                  >
-                    confirm delete
-                  </button>
-                  <button
-                    className="border-button"
-                    onClick={() => SetDelete(false)}
-                  >
-                    cancel
-                  </button>
-                </Form>
-              </>
-            ) : null}
-          </div>
-          {/* this is the creatable components with some basic inline css */}
-          <div className="select-inner-wrapper">
-            <div style={{ marginBottom: "30px" }}>
-              {isMulti ? (
-                <CreatableSelect
-                  maxMenuHeight={200}
-                  isMulti
-                  isClearable
-                  isDisabled={false}
-                  isLoading={loading}
-                  onChange={handleChange}
-                  onCreateOption={handleCreate}
-                  options={data}
-                  value={value}
-                  styles={customStyles}
-                />
-              ) : (
-                <CreatableSelect
-                  maxMenuHeight={200}
-                  isClearable
-                  isDisabled={false}
-                  isLoading={loading}
-                  onChange={handleChange}
-                  onCreateOption={handleCreate}
-                  options={data}
-                  value={value}
-                  styles={customStyles}
-                />
-              )}
-            </div>
-            <div className="button-wrapper">
-              {isMulti ? null : (
-                <>
-                  {selected && !edit && !IsDelete && value ? (
-                    <>
-                      <button
-                        className="trnsparent-button"
-                        style={{ margin: "5px" }}
-                        onClick={() => setEdit(true)}
-                      >
-                        C
-                      </button>
-                      <button
-                        className="trnsparent-button"
-                        onClick={() => SetDelete(true)}
-                      >
-                        D
-                      </button>
-                    </>
-                  ) : null}
-                </>
-              )}
-            </div>
-          </div>
+                <button
+                  className="border-button"
+                  onClick={() => setEdit(false)}
+                >
+                  cancel
+                </button>
+              </Form>
+            </>
+          ) : null}
+
+          {IsDelete && value ? (
+            <>
+              {" "}
+              <Form id="delete-form" onSubmit={deleteAnchor}>
+                <Form.Group>
+                  <Form.Control
+                    type="text"
+                    name="components"
+                    value={dataToBeChange ? dataToBeChange : ""}
+                    placeholder="Edit Anchor"
+                    disabled
+                  />
+                </Form.Group>
+                <button
+                  className="border-button"
+                  style={{ margin: "5px" }}
+                  form="delete-form"
+                  type="submit"
+                >
+                  confirm delete
+                </button>
+                <button
+                  className="border-button"
+                  onClick={() => SetDelete(false)}
+                >
+                  cancel
+                </button>
+              </Form>
+            </>
+          ) : null}
         </div>
+        {/* this is the creatable components with some basic inline css */}
+        {/* <div className="select-inner-wrapper"> */}
+        <Row>
+          <div className="creatable-2">
+            {isMulti ? (
+              <CreatableSelect
+                maxMenuHeight={200}
+                isMulti
+                isClearable
+                isDisabled={false}
+                isLoading={loading}
+                onChange={handleChange}
+                onCreateOption={handleCreate}
+                options={data}
+                value={value}
+                styles={customStyles}
+              />
+            ) : (
+              <CreatableSelect
+                maxMenuHeight={200}
+                isClearable
+                isDisabled={false}
+                isLoading={loading}
+                onChange={handleChange}
+                onCreateOption={handleCreate}
+                options={data}
+                value={value}
+                styles={customStyles}
+              />
+            )}
+          </div>
+          <div className="button-wrapper-2">
+            {/* <div> */}
+            {isMulti ? null : (
+              <>
+                {selected && !edit && !IsDelete && value ? (
+                  <>
+                    <button
+                      className="trnsparent-button"
+                      style={{ margin: "5px" }}
+                      onClick={() => setEdit(true)}
+                    >
+                      C
+                    </button>
+                    <button
+                      className="trnsparent-button"
+                      onClick={() => SetDelete(true)}
+                    >
+                      D
+                    </button>
+                  </>
+                ) : null}
+              </>
+            )}
+          </div>
+        </Row>
+        {/* </div> */}
       </div>
     </div>
   );

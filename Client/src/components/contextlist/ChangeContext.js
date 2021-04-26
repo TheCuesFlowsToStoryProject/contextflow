@@ -17,7 +17,7 @@ const ChangeContext = ({
   const [modelEntity, setSelectmodelEntity] = useState([]);
   const value = useContext(UserContext);
   const [contexttype, setContexttype] = useState();
-  const [userData, setUserData] = value.user;
+  const [userData] = value.user;
   const user = userData.user !== undefined ? userData.user : userData.user2;
 
   const cancelChange = () => {
@@ -50,6 +50,7 @@ const ChangeContext = ({
       <Row>
         <Col xs={11} lg={4}>
           <WordPhrase
+            background={"#f7786b"}
             name={"domain"}
             heading={"Domain"}
             setSelectDomain={setSelectDomain}
@@ -58,6 +59,7 @@ const ChangeContext = ({
         </Col>
         <Col xs={11} lg={4}>
           <WordPhrase
+            background={"#f7786b"}
             name={"flow"}
             heading={"flow"}
             selectValue={changeData.flow}
@@ -66,6 +68,7 @@ const ChangeContext = ({
         </Col>
         <Col xs={11} lg={4}>
           <WordPhrase
+            background={"#f7786b"}
             name={"model_entity"}
             heading={"Model Entity"}
             setSelectmodelEntity={setSelectmodelEntity}

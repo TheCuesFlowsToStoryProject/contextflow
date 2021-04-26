@@ -15,7 +15,7 @@ const AddContext = ({ setAdd, setError }) => {
   var domain_anchor = JSON.parse(sessionStorage.getItem("DomainAnchor"));
   var user_anchor = JSON.parse(sessionStorage.getItem("UserAnchor"));
   const value = useContext(UserContext);
-  const [userData, setUserData] = value.user;
+  const [userData] = value.user;
   const user = userData.user !== undefined ? userData.user : userData.user2;
   var ModelEntity = model_entity.map(function (item) {
     return item["wp"];
@@ -56,24 +56,30 @@ const AddContext = ({ setAdd, setError }) => {
   };
 
   return (
-    <Container fluid className="context-wrapper">
+    <Container
+      fluid
+      // className="context-wrapper"
+    >
       <Row>
-        <Col xs={11} lg={4}>
+        <Col xs={12} lg={4}>
           <WordPhrase
+            background={"Tomato"}
             setDomain={setDomain}
             name={"domain"}
             heading={domain_anchor ? domain_anchor.anchor : "Domain Anchor"}
           />
         </Col>
-        <Col xs={11} lg={4}>
+        <Col xs={12} lg={4}>
           <WordPhrase
+            background={"Orange"}
             setFlow={setFlow}
             name={"flow"}
             heading={flow_anchor ? flow_anchor.anchor : "Flow Anchor"}
           />
         </Col>
-        <Col xs={11} lg={4}>
+        <Col xs={12} lg={4}>
           <WordPhrase
+            background={"SlateBlue"}
             setModel={setModel}
             model_entity={model_entity}
             isMulti={"isMulti"}
@@ -81,7 +87,7 @@ const AddContext = ({ setAdd, setError }) => {
             heading={"Model Entity"}
           />
         </Col>
-        <Col xs={11} lg={12}>
+        <Col xs={12} lg={12}>
           <SelectCurd
             anchorType={"typecollection"}
             setContexttype={setContexttype}

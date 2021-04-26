@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CreatableSelect from "react-select/creatable";
 import AnchorClientApi from "../../client-api/anchor";
+import { Row } from "react-bootstrap";
 import { Form } from "react-bootstrap";
 import "./select.css";
 
@@ -15,6 +16,7 @@ const SelectCurd = ({
   domainValue,
   flowValue,
   typeValue,
+  background,
 }) => {
   const check = sessionStorage.getItem(anchorType) !== null;
   const session_data = check
@@ -175,14 +177,23 @@ const SelectCurd = ({
   };
 
   const customStyles = {
+    // control: (css) => ({
+    // ...css,
+    // width: "300px",
+    // height: "auto",
+    // background: "red",
+    // }),
     control: (styles) => ({
       ...styles,
       backgroundColor: "white",
-      width: !setContexttype ? "260px" : "200px",
+      width: !setContexttype ? "240px" : "200px",
     }),
   };
   return (
-    <div className={!setContexttype ? "select-wrapper" : "select-type"}>
+    <div
+      className="select-wrapper"
+      style={{ background: background ? background : "wheat" }}
+    >
       <div>
         <div className="form-wrapper">
           <p>
@@ -253,25 +264,25 @@ const SelectCurd = ({
             </>
           ) : null}
         </div>
-        {/* this is the creatable components with some basic inline css */}
-        <div
-          className="select-inner-wrapper"
-          style={{ display: "inline-flex" }}
-        >
-          <div style={{ marginBottom: "30px" }}>
-            <CreatableSelect
-              maxMenuHeight={200}
-              isClearable
-              isDisabled={false}
-              isLoading={loading}
-              onChange={handleChange}
-              onCreateOption={handleCreate}
-              options={data}
-              value={value}
-              styles={customStyles}
-            />
+
+        <Row className="select-inner-wrapper">
+          <div className="creatable" style={{ marginBottom: "30px" }}>
+            {!edit && !IsDelete ? (
+              <>
+                <CreatableSelect
+                  isClearable
+                  isDisabled={false}
+                  isLoading={loading}
+                  onChange={handleChange}
+                  onCreateOption={handleCreate}
+                  options={data}
+                  value={value}
+                  styles={customStyles}
+                />
+              </>
+            ) : null}{" "}
           </div>
-          <div className="button-wrapper">
+          <div>
             {selected &&
             (session_data || setContexttype) &&
             !edit &&
@@ -296,7 +307,7 @@ const SelectCurd = ({
               </>
             ) : null}
           </div>
-        </div>
+        </Row>
       </div>
     </div>
   );
