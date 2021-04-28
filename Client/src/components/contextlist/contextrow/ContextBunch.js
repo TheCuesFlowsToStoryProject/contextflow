@@ -81,11 +81,11 @@ const ContextBunch = ({
     setDelete(true);
     setAttention(atn);
   };
-  const contextValue = (attention) => {
+  const contextValue = async (attention) => {
     console.log(attention, context._id);
     setContextValue(attention);
 
-    getContextValue({ wp: attention, id: context._id }).then((res) => {
+    await getContextValue({ wp: attention, id: context._id }).then((res) => {
       setContextValueData(res.data);
     });
     setShow(true);
