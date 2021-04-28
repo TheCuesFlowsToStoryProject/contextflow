@@ -99,7 +99,10 @@ const ContextBunch = ({
         contextValue={context_value}
         valueData={contextValueDataFromServer}
       />
-      <Container fluid style={{ maxHeight: "200px", overflow: "auto" }}>
+      <Container
+        fluid
+        // style={{ maxHeight: "200px", overflow: "auto" }}
+      >
         <DragDropContext
           onDragEnd={(param) => {
             setDrag(true);
