@@ -42,7 +42,7 @@ const PopUpForm = ({
     <div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Value of entity</Modal.Title>
+          <Modal.Title>{contextValue}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formSubmit}>
