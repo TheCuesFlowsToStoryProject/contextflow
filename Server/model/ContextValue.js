@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const ObjectId = require("mongodb").ObjectID;
-const ContextValueSchema = new Schema(
-  {
-    _id: { type: String },
-    contextvalue: [{}],
+const ContextValueSchema = new Schema({
+  _id: { type: String },
+  contextvalue: {
+    type: Object,
+    default: {},
   },
-  { versonkey: false }
-);
-module.exports = mongoose.model("contextvalue", ContextValueSchema);
+});
+module.exports = mongoose.model("value", ContextValueSchema);

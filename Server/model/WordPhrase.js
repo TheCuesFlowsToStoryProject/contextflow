@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const WordPhraseSchema = new Schema({
   wp: {
@@ -10,4 +10,4 @@ const WordPhraseSchema = new Schema({
     required: true,
   },
 });
-module.exports = mongoose.model('WordPhrase', WordPhraseSchema);
+module.exports = mongoose.model("WordPhrase", WordPhraseSchema);

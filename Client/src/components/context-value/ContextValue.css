@@ -1,0 +1,16 @@
+.button-holder {
+  width: 100%;
+  display: flex;
+  padding-left: 50px;
+}
+.next-button {
+  margin-left: 66%;
+}
+.card-body {
+  width: 350px;
+}
+@media (max-width: 478px) {
+  .next-button {
+    margin-left: 35%;
+  }
+}

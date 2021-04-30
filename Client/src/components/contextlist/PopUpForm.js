@@ -17,7 +17,6 @@ const PopUpForm = ({
   useEffect(async () => {
     var d = await valueData.value;
     if (setMessage) {
-      console.log(d);
       setMessage(valueData ? d : "");
     }
     setShow(showForm);

@@ -10,7 +10,11 @@ import {
 import { UserContext } from "../../../provider/UserProvider";
 import DeleteContext from "../DeleteContext";
 import PopUpForm from "../PopUpForm";
-import { getContextValue } from "../../../client-api/contextflow";
+import {
+  getContextValue,
+  getAllContextValue,
+} from "../../../client-api/contextflow";
+import ContextValueModal from "../../context-value/ContextValueModal";
 const ContextBunch = ({
   context,
   addModule,
@@ -19,7 +23,6 @@ const ContextBunch = ({
   setRefresh,
   setContxtType,
   setChange,
-  // changeData,
   setChangeData,
 }) => {
   const value = useContext(UserContext);
@@ -29,8 +32,11 @@ const ContextBunch = ({
   const [deleteContxt, setDelete] = useState(false);
   const [attention, setAttention] = useState();
   const [show, setShow] = useState(false);
+  const [showContextValueModal, setShowContextValueModal] = useState(false);
   const [context_value, setContextValue] = useState();
   const [contextValueDataFromServer, setContextValueData] = useState([]);
+  const [contextAllvalue, setcontextAllvalue] = useState([]);
+  const [atn, setAtn] = useState();
   var contxts = context.atttentionentities;
   const saveDragValue = () => {
     if (user._id === context.owner) {
@@ -88,6 +94,14 @@ const ContextBunch = ({
     });
     setShow(true);
   };
+
+  const contextValuePopUp = async (attention) => {
+    await getAllContextValue({ id: context._id }).then((res) => {
+      setcontextAllvalue(res.data);
+    });
+    setAtn(attention);
+    setShowContextValueModal(true);
+  };
   return (
     <div>
       <PopUpForm
@@ -96,6 +110,14 @@ const ContextBunch = ({
         setShowForm={setShow}
         contextValue={context_value}
         valueData={contextValueDataFromServer}
+      />
+      <ContextValueModal
+        showContextValueModal={showContextValueModal}
+        setShowContextValueModal={setShowContextValueModal}
+        contextAllvalue={contextAllvalue}
+        context={context}
+        atn={atn}
+        contxts={contxts}
       />
       <Container
         fluid
@@ -144,8 +166,14 @@ const ContextBunch = ({
                               </li>{" "}
                               <div className="button-container">
                                 <Button
+                                  variant="primary"
+                                  onClick={() => contextValuePopUp(attention)}
+                                >
+                                  f
+                                </Button>
+                                <Button
                                   variant="warning"
-                                  className="change-button"
+                                  // className="change-button"
                                   onClick={() => {
                                     contextValue(attention);
                                   }}
@@ -155,7 +183,7 @@ const ContextBunch = ({
                                 <Button
                                   onClick={() => contextChange(attention)}
                                   variant="success"
-                                  className="change-button"
+                                  // className="change-button"
                                 >
                                   C
                                 </Button>

@@ -4,6 +4,7 @@ const Context = require("../model/ContextFlow");
 const WordPhrases = require("../model/WordPhrase");
 const Domain = require("../model/Domain");
 const Ds = require("../model/DyanamicSchema");
+const ContextValue = require("../model/ContextValue");
 const ObjectId = require("mongodb").ObjectID;
 const mongoose = require("mongoose");
 router.delete("/delete", async (req, res) => {
@@ -82,7 +83,6 @@ router.get("/contexts", async (req, res) => {
             obj3[j] = i.contexts[j];
           }
         }
-
         arr.push(obj3);
         c = c + 1;
       }
@@ -419,10 +419,9 @@ function getWordphrasesById(id) {
   });
 }
 
-async function getAnchorByID(data) {
-  const modelName = await Ds.data.getAnchorModel(data.model_name);
-  return modelName.findById(data.id).then((res) => {
-    return res;
-  });
-}
+// async function getContextValueByID(data) {
+//   return ContextValue.findById(data).then((res) => {
+//     return res;
+//   });
+// }
 module.exports = router;
