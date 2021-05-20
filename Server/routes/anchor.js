@@ -1,7 +1,7 @@
 const Express = require("express");
 const router = Express.Router();
 const ObjectId = require("mongodb").ObjectID;
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const method = require("../model/DyanamicSchema");
 const ResolutionPatternCollection = require("../model/ResolutionPatternCollection");
 
@@ -13,6 +13,7 @@ router.post("/post-anchor", async (req, res) => {
   const anAnchor = new Anchor({
     anchor: req.body.anchor,
   });
+  console.log(anAnchor);
   anAnchor
     .save()
     .then((response) => {
@@ -84,11 +85,17 @@ router.post("/save-pattern", async (req, res) => {
     anchor: req.body.flowAnchor,
     collection: "flowanchor",
   });
+
+  const entityAnchor = await getIds({
+    anchor: req.body.entity_anchor,
+    collection: "entity_anchor",
+  });
   const pattern = {
     user_anchor: userAnchor._id,
     resolution_pattern: resolutionPattern._id,
     domain_anchor: domainAnchor._id,
     flow_anchor: flowAnchor._id,
+    entity_anchor: entityAnchor._id,
   };
 
   const modelResolutionPattern = new ResolutionPatternCollection(pattern);
@@ -109,13 +116,6 @@ router.post("/save-pattern", async (req, res) => {
 
 router.get("/get-resolution-pattern", async (req, res) => {
   const anchor = JSON.parse(req.query.payload);
-  // ResolutionPatternCollection.collection.dropAllIndexes(function (
-  //   err,
-  //   results
-  // ) {
-  //   console.log(err, results);
-  //   // Handle errors
-  // });
   const userId = await getIds({
     anchor: anchor.user_anchor,
     collection: "useranchor",
@@ -129,7 +129,6 @@ router.get("/get-resolution-pattern", async (req, res) => {
   const resoLution_id = resoLutionId
     ? ObjectId(resoLutionId._id).toString()
     : null;
-
   const query = resoLutionId
     ? {
         user_anchor: user_anchor_id,
@@ -156,6 +155,10 @@ router.get("/get-resolution-pattern", async (req, res) => {
     i.user_anchor = await getAnchorById({
       anchor: ObjectId(i.user_anchor),
       collection: "useranchor",
+    });
+    i.entity_anchor = await getAnchorById({
+      anchor: ObjectId(i.entity_anchor),
+      collection: "entity_anchor",
     });
   }
   res.send(arr);

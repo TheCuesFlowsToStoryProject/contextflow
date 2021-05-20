@@ -5,6 +5,24 @@
 }
 .next-button {
   margin-left: 66%;
+  background: #6495ed;
+  border-radius: 5px;
+  margin-top: 10px;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: 0.3s, transform 0.3s, box-shadow 0.3s;
+  will-change: transform;
+}
+.prev-button {
+  background: #6495ed;
+  border-radius: 5px;
+  margin-top: 10px;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: 0.3s, transform 0.3s, box-shadow 0.3s;
+  will-change: transform;
 }
 .card-body {
   width: 350px;
@@ -13,4 +31,16 @@
   .next-button {
     margin-left: 35%;
   }
+}
+.trnsparent-button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  height: auto;
+  width: auto;
+  font-size: 1em;
+  /* border-bottom: 1px solid #3498db; */
+}
+.modal-card {
+  width: 25rem;
 }

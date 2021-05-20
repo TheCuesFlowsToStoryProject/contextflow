@@ -12,9 +12,9 @@ import DeleteContext from "../DeleteContext";
 import PopUpForm from "../PopUpForm";
 import {
   getContextValue,
-  getAllContextValue,
+  // getAllContextValue,
 } from "../../../client-api/contextflow";
-import ContextValueModal from "../../context-value/ContextValueModal";
+// import ContextValueModal from "../../context-value/ContextValueModal";
 const ContextBunch = ({
   context,
   addModule,
@@ -32,11 +32,11 @@ const ContextBunch = ({
   const [deleteContxt, setDelete] = useState(false);
   const [attention, setAttention] = useState();
   const [show, setShow] = useState(false);
-  const [showContextValueModal, setShowContextValueModal] = useState(false);
+  // const [showContextValueModal, setShowContextValueModal] = useState(false);
   const [context_value, setContextValue] = useState();
   const [contextValueDataFromServer, setContextValueData] = useState([]);
-  const [contextAllvalue, setcontextAllvalue] = useState([]);
-  const [atn, setAtn] = useState();
+  // const [contextAllvalue, setcontextAllvalue] = useState([]);
+  // const [atn, setAtn] = useState();
   var contxts = context.atttentionentities;
   const saveDragValue = () => {
     if (user._id === context.owner) {
@@ -95,13 +95,14 @@ const ContextBunch = ({
     setShow(true);
   };
 
-  const contextValuePopUp = async (attention) => {
-    await getAllContextValue({ id: context._id }).then((res) => {
-      setcontextAllvalue(res.data);
-    });
-    setAtn(attention);
-    setShowContextValueModal(true);
-  };
+  // const contextValuePopUp = async (attention) => {
+  //   await getAllContextValue({ id: context._id }).then((res) => {
+  //     setcontextAllvalue(res.data);
+  //   });
+  //   setAtn(attention);
+  //   setShowContextValueModal(true);
+
+  // };
   return (
     <div>
       <PopUpForm
@@ -111,14 +112,14 @@ const ContextBunch = ({
         contextValue={context_value}
         valueData={contextValueDataFromServer}
       />
-      <ContextValueModal
+      {/* <ContextValueModal
         showContextValueModal={showContextValueModal}
         setShowContextValueModal={setShowContextValueModal}
         contextAllvalue={contextAllvalue}
         context={context}
         atn={atn}
         contxts={contxts}
-      />
+      /> */}
       <Container
         fluid
         // style={{ maxHeight: "200px", overflow: "auto" }}
@@ -165,12 +166,12 @@ const ContextBunch = ({
                                 {attention}
                               </li>{" "}
                               <div className="button-container">
-                                <Button
+                                {/* <Button
                                   variant="primary"
                                   onClick={() => contextValuePopUp(attention)}
                                 >
                                   f
-                                </Button>
+                                </Button> */}
                                 <Button
                                   variant="warning"
                                   // className="change-button"

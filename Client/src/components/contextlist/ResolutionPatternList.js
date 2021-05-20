@@ -6,7 +6,7 @@ const ResolutionPatternList = ({ setRefresh, refresh }) => {
   const [data, setData] = useState([]);
   const [label, setLabel] = useState([]);
   const [defaultValue, setDefaultValue] = useState({});
-  const [update, setUpdate] = useState(false);
+  // const [update, setUpdate] = useState(false);
   var user_anchor = JSON.parse(sessionStorage.getItem("UserAnchor"));
   var resolution_pattern = JSON.parse(
     sessionStorage.getItem("ResolutionPattern")
@@ -20,11 +20,13 @@ const ResolutionPatternList = ({ setRefresh, refresh }) => {
       const list = await getResolutionPattern(userAnchor);
       setData(list.data);
       var d = list.data;
-      var newArray = d.filter(function (item) {
-        return item.resolution_pattern === resolution_pattern.anchor;
-      });
+      if (d && resolution_pattern !== null) {
+        var newArray = d.filter(function (item) {
+          return item.resolution_pattern === resolution_pattern.anchor;
+        });
 
-      saveTosession(newArray[0]);
+        saveTosession(newArray[0]);
+      }
     })();
   }, []);
 
@@ -34,23 +36,40 @@ const ResolutionPatternList = ({ setRefresh, refresh }) => {
         e.label = e.resolution_pattern;
         return e;
       });
-      setLabel(wdata);
-      setDefaultValue(resolution_pattern);
+      if (resolution_pattern !== null) {
+        setLabel(wdata);
+        var ar = wdata.filter(function (item) {
+          return item.resolution_pattern === resolution_pattern.anchor;
+        });
+        if (ar.length === 0) {
+          setDefaultValue(wdata[0]);
+          setRefresh(!refresh);
+        } else {
+          setDefaultValue(resolution_pattern);
+          setRefresh(!refresh);
+        }
+      }
     })();
   }, [data]);
   const saveTosession = (data) => {
-    const FlowAnchor = {
-      anchor: data.flow_anchor,
-      label: data.flow_anchor,
-    };
-    const DomainAnchor = {
-      anchor: data.domain_anchor,
-      label: data.domain_anchor,
-    };
-
-    sessionStorage.setItem("FlowAnchor", JSON.stringify(FlowAnchor));
-    sessionStorage.setItem("DomainAnchor", JSON.stringify(DomainAnchor));
-    setRefresh(!refresh);
+    if (data !== undefined) {
+      const FlowAnchor = {
+        anchor: data.flow_anchor,
+        label: data.flow_anchor,
+      };
+      const DomainAnchor = {
+        anchor: data.domain_anchor,
+        label: data.domain_anchor,
+      };
+      const EntityAnchor = {
+        anchor: data.entity_anchor,
+        label: data.entity_anchor,
+      };
+      sessionStorage.setItem("FlowAnchor", JSON.stringify(FlowAnchor));
+      sessionStorage.setItem("DomainAnchor", JSON.stringify(DomainAnchor));
+      sessionStorage.setItem("Entity_Anchor", JSON.stringify(EntityAnchor));
+      setRefresh(!refresh);
+    }
   };
   const handleChange = (data) => {
     saveTosession(data);

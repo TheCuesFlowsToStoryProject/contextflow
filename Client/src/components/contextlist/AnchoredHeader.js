@@ -6,6 +6,7 @@ const AnchoredHeader = ({ add, addModule, setAdd }) => {
   var flow_anchor = JSON.parse(sessionStorage.getItem("FlowAnchor"));
   var domain_anchor = JSON.parse(sessionStorage.getItem("DomainAnchor"));
   // var user_anchor = JSON.parse(sessionStorage.getItem("UserAnchor"));
+  var entity_anchor = JSON.parse(sessionStorage.getItem("Entity_Anchor"));
 
   return (
     <Container fluid>
@@ -19,8 +20,7 @@ const AnchoredHeader = ({ add, addModule, setAdd }) => {
         <Col xs={2}>
           <div className="sub-head">
             <p>
-              {" "}
-              <b>Model Entity</b>
+              {entity_anchor ? <b>{entity_anchor.anchor} </b> : "Model entity"}
             </p>
           </div>
         </Col>

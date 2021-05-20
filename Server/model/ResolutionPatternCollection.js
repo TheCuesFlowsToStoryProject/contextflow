@@ -18,6 +18,10 @@ const ResolutionPatternSchema = new Schema({
     type: String,
     required: true,
   },
+  entity_anchor: {
+    type: String,
+    required: true,
+  },
 });
 
 ResolutionPatternSchema.index(

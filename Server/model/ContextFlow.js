@@ -21,6 +21,9 @@ const ContextFlowSchema = new Schema({
     UserAnchor: {
       type: String,
     },
+    EntityAnchor: {
+      type: String,
+    },
     contexttype: {
       type: String,
     },

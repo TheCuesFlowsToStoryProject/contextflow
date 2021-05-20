@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Modal, Button } from "react-bootstrap";
 import ContextValueList from "./ContextValueList";
+import { updateContextValue } from "../../client-api/contextflow";
 
 const ContextValueModal = ({
   showContextValueModal,
@@ -12,11 +13,23 @@ const ContextValueModal = ({
 }) => {
   const handleClose = () => setShowContextValueModal(false);
   const [show, setShow] = useState(false);
-  // const [heading, setHeading] = useState("");
+  const [draggedValue, setDraggedValue] = useState();
+  const [showButton, setShowButton] = useState(false);
 
   useEffect(async () => {
     setShow(showContextValueModal);
   }, [showContextValueModal]);
+
+  const getUpdatedValue = (value) => {
+    setDraggedValue(value);
+    setShowButton(value);
+  };
+  const saveUpdatedValue = () => {
+    updateContextValue(draggedValue).then((res) => {
+      console.log(res);
+    });
+    setShowButton(false);
+  };
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
@@ -29,15 +42,19 @@ const ContextValueModal = ({
             context={context}
             atn={atn}
             contxts={contxts}
+            getUpdatedValue={getUpdatedValue}
+            setShowButton={setShowButton}
           />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+          {showButton ? (
+            <Button variant="primary" onClick={() => saveUpdatedValue()}>
+              Save Changes
+            </Button>
+          ) : null}
         </Modal.Footer>
       </Modal>
     </div>

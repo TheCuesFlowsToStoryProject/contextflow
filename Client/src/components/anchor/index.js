@@ -10,6 +10,7 @@ const Anchor = () => {
   const [domain, setDomain] = useState();
   const [resolution, setResolution] = useState(false);
   const [flow, setFlow] = useState();
+  const [entity, setEntity] = useState();
   const [user, setUser] = useState();
   const [error, setError] = useState();
   const [ResolutionPattern, setResolutionPattern] = useState();
@@ -17,6 +18,7 @@ const Anchor = () => {
   const [data, setData] = useState([]);
   const [domainValue, setDomainValue] = useState();
   const [flowValue, setFlowValue] = useState();
+  const [entityValue, setEntityValue] = useState();
   const savePatternToDb = () => {
     if (domain && flow && ResolutionPattern && user) {
       // setPattern(true);
@@ -25,7 +27,9 @@ const Anchor = () => {
         flowAnchor: flow.anchor,
         resolutionPattern: ResolutionPattern.anchor,
         userAnchor: user.anchor,
+        entity_anchor: entity.anchor,
       };
+
       saveResolutionPattern(obj)
         .then((res) => {
           setError(res.data.err);
@@ -65,9 +69,14 @@ const Anchor = () => {
         anchor: d.flow_anchor,
         label: d.flow_anchor,
       };
-
+      const entityObj = {
+        anchor: d.entity_anchor,
+        label: d.entity_anchor,
+      };
       setDomainValue(domainObj);
       setFlowValue(flowObj);
+      setEntityValue(entityObj);
+      setResolution(false);
     }
   }, [data]);
 
@@ -96,16 +105,13 @@ const Anchor = () => {
           <b>Flow Anchor:{flow.anchor}</b>
         </div>
       ) : null}
+      {entity ? (
+        <div className="anchor">
+          <b>Entity Anchor:{entity.anchor}</b>
+        </div>
+      ) : null}
       <Row className="anchor-row">
-        <Col xs={12} lg={6} style={{ marginBottom: "30px" }}>
-          <SelectCurd
-            background={"navajowhite"}
-            setResolution={setResolution}
-            anchorType={"UserAnchor"}
-            setUser={setUser}
-          />
-        </Col>
-        <Col xs={12} lg={6} style={{ marginBottom: "30px" }}>
+        <Col xs={12} lg={12} style={{ marginBottom: "30px" }}>
           <SelectCurd
             background={"MediumSeaGreen"}
             anchorType={"ResolutionPattern"}
@@ -113,7 +119,15 @@ const Anchor = () => {
             setResolution={setResolution}
           />
         </Col>
-        <Col xs={12} lg={6} style={{ marginBottom: "30px" }}>
+        <Col xs={12} lg={12} style={{ marginBottom: "30px" }}>
+          <SelectCurd
+            background={"navajowhite"}
+            setResolution={setResolution}
+            anchorType={"UserAnchor"}
+            setUser={setUser}
+          />
+        </Col>
+        <Col xs={12} lg={12} style={{ marginBottom: "30px" }}>
           <SelectCurd
             background={"SlateBlue"}
             anchorType={"DomainAnchor"}
@@ -122,13 +136,22 @@ const Anchor = () => {
             domainValue={domainValue}
           />
         </Col>
-        <Col xs={12} lg={6} style={{ marginBottom: "70px" }}>
+        <Col xs={12} lg={12} style={{ marginBottom: "30px" }}>
           <SelectCurd
             background={"violet"}
             anchorType={"FlowAnchor"}
             setFlow={setFlow}
             setResolution={setResolution}
             flowValue={flowValue}
+          />
+        </Col>
+        <Col xs={12} lg={12} style={{ marginBottom: "30px" }}>
+          <SelectCurd
+            background={"cyan"}
+            anchorType={"Entity_Anchor"}
+            setEntity={setEntity}
+            setResolution={setResolution}
+            entityValue={entityValue}
           />
         </Col>
         <div className="anchor">

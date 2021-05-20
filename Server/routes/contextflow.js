@@ -5,7 +5,6 @@ const WordPhrases = require("../model/WordPhrase");
 const Domain = require("../model/Domain");
 const Ds = require("../model/DyanamicSchema");
 const ContextValue = require("../model/ContextValue");
-const ObjectId = require("mongodb").ObjectID;
 const mongoose = require("mongoose");
 router.delete("/delete", async (req, res) => {
   const data = req.body;
@@ -25,16 +24,6 @@ router.delete("/delete", async (req, res) => {
   }
 });
 router.get("/contexts", async (req, res) => {
-  // Context.collection.dropAllIndexes(function (err, results) {
-  //   console.log(err, results);
-  //   // Handle errors
-  // });
-  // Context.collection
-  //   .getIndexes({ full: true })
-  //   .then((indexes) => {
-  //     console.log("indexes:", indexes);
-  //   })
-  //   .catch(console.error);
   const anchorData = JSON.parse(req.query.payload);
   var objs;
   anchorData.anchor
@@ -165,6 +154,11 @@ router.post("/context", (req, res) => {
                 user_anchor: d.UserAnchor,
               };
               arr.push(user_anchor_obj);
+            } else if (obj_name === "EntityAnchor") {
+              const entity_anchor_obj = {
+                entity_anchor: d.EntityAnchor,
+              };
+              arr.push(entity_anchor_obj);
             } else if (obj_name === "uid") {
               const j = { uid: d.uid };
               arr.push(j);
@@ -280,6 +274,23 @@ router.put("/remove-attention", async (req, res) => {
     var wpId = await getIds(data.atttentionentity);
 
     const contxt = checkData[0];
+    // "_v".concat(contextData._id.toString())
+    var context_value = await getContextValueByID(
+      "_v".concat(contxt._id.toString())
+    );
+    if (context_value.contextvalue[wpId._id.toString()] !== undefined) {
+      delete context_value.contextvalue[wpId._id.toString()];
+      const modelContextValue = new ContextValue(context_value);
+      modelContextValue
+        .save()
+        .then((response) => {
+          res.send({ json: "contxt saved successfully" });
+        })
+        .catch((error) => {
+          console.log(error);
+          res.send({ msg: "contxt saved successfully" });
+        });
+    }
     var atnentity = contxt.contexts.atttentionentities;
     const arrs = atnentity.filter((item) => item !== wpId._id.toString());
     contxt.contexts.atttentionentities = arrs;
@@ -322,7 +333,6 @@ router.put("/change-context", async (req, res) => {
     contxt.contexts.domain = domainId._id;
     contxt.contexts.contexttype = data.contexttype;
     const modelContext = new Context(contxt);
-    // console.log(modelContext);
     modelContext
       .save()
       .then((response) => {
@@ -378,6 +388,8 @@ function createObject(arr, atntn) {
       obj["DomainAnchor"] = i.domain_anchor;
     } else if (ind === "user_anchor") {
       obj["UserAnchor"] = i.user_anchor;
+    } else if (ind === "entity_anchor") {
+      obj["EntityAnchor"] = i.entity_anchor;
     } else if (ind === "uid") {
       obj["owner"] = i.uid;
     } else if (ind === "contexttype") {
@@ -419,9 +431,10 @@ function getWordphrasesById(id) {
   });
 }
 
-// async function getContextValueByID(data) {
-//   return ContextValue.findById(data).then((res) => {
-//     return res;
-//   });
-// }
 module.exports = router;
+
+function getContextValueByID(data) {
+  return ContextValue.findById(data).then((res) => {
+    return res;
+  });
+}

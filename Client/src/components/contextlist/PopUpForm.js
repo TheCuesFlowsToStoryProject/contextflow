@@ -24,19 +24,35 @@ const PopUpForm = ({
   const handleClose = () => {
     setShowForm(false);
   };
-  const formSubmit = (e) => {
-    e.preventDefault();
 
-    if (message) {
-      const obj = {
-        contextvalue: message,
-        value: contextValue,
-        id: contextId,
-      };
-      saveContextValue(obj);
+  const formSubmit = async (e) => {
+    e.preventDefault();
+    var plainString = message.replace(/<[^>]+>/g, "");
+    const res = IsJsonString(plainString);
+    if (res) {
+      if (message) {
+        const obj = {
+          contextvalue: message,
+          value: contextValue,
+          id: contextId,
+        };
+        saveContextValue(obj);
+      }
+      handleClose();
+    } else {
+      alert("only valid json is alowed");
     }
-    handleClose();
   };
+
+  function IsJsonString(str) {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  }
+
   return (
     <div>
       <Modal show={show} onHide={handleClose}>
@@ -53,6 +69,7 @@ const PopUpForm = ({
                   const data = editor.getData();
                   setMessage(data);
                 }}
+
                 // onBlur={(event, editor) => {}}
                 // onFocus={(event, editor) => {}}
               />

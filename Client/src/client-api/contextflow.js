@@ -25,6 +25,8 @@ export const getContextValue = (payload) =>
   client.get(`/get-context-value`, { params: { payload } });
 export const getAllContextValue = (payload) =>
   client.get(`/get-all-context-value`, { params: { payload } });
+export const updateContextValue = (payload) =>
+  client.put(`/update-context-value`, payload);
 
 // export const deleteContextFlowById = (payload) =>
 //   client.delete('/contextflow/delete', {data: payload});

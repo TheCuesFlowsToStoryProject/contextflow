@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Row } from "react-bootstrap";
 import "./ContextValue.css";
 
-const Pagination = ({ showPerPage, onPaginationChange, total, serialNo }) => {
-  const [counter, setCounter] = useState(serialNo);
+const Pagination = ({
+  showPerPage,
+  onPaginationChange,
+  total,
+  setShowButton,
+}) => {
+  const [counter, setCounter] = useState(1);
 
   useEffect(() => {
     const value = showPerPage * counter;
@@ -11,6 +16,7 @@ const Pagination = ({ showPerPage, onPaginationChange, total, serialNo }) => {
   }, [counter]);
 
   const onButtonClick = (type) => {
+    setShowButton(false);
     if (type === "prev") {
       if (counter === 1) {
         setCounter(1);
@@ -26,16 +32,14 @@ const Pagination = ({ showPerPage, onPaginationChange, total, serialNo }) => {
     }
   };
   return (
-    // <div className="d-flex justify-content-between">
     <Row className="button-holder">
-      <Button className="prev-button" onClick={() => onButtonClick("prev")}>
+      <button className="prev-button" onClick={() => onButtonClick("prev")}>
         Prev
-      </Button>
-      <Button className="next-button" onClick={() => onButtonClick("next")}>
+      </button>
+      <button className="next-button" onClick={() => onButtonClick("next")}>
         Next
-      </Button>
+      </button>
     </Row>
-    // </div>
   );
 };
 

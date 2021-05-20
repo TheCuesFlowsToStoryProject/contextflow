@@ -14,6 +14,7 @@ const AddContext = ({ setAdd, setError }) => {
   var flow_anchor = JSON.parse(sessionStorage.getItem("FlowAnchor"));
   var domain_anchor = JSON.parse(sessionStorage.getItem("DomainAnchor"));
   var user_anchor = JSON.parse(sessionStorage.getItem("UserAnchor"));
+  var entity_anchor = JSON.parse(sessionStorage.getItem("Entity_Anchor"));
   const value = useContext(UserContext);
   const [userData] = value.user;
   const user = userData.user !== undefined ? userData.user : userData.user2;
@@ -28,6 +29,7 @@ const AddContext = ({ setAdd, setError }) => {
         contexttype &&
         flow_anchor &&
         domain_anchor &&
+        entity_anchor &&
         user &&
         user_anchor &&
         model_entity.length > 0
@@ -38,6 +40,7 @@ const AddContext = ({ setAdd, setError }) => {
           { FlowAnchor: flow_anchor.anchor },
           { DomainAnchor: domain_anchor.anchor },
           { UserAnchor: user_anchor.anchor },
+          { EntityAnchor: entity_anchor.anchor },
           { contexttype: contexttype.anchor },
           { uid: user._id },
           ModelEntity,
