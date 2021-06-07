@@ -43,7 +43,7 @@ Context flow  maintains the registries for different contexts in the development
 
 
 SOFTWARE DEVELOPMENT : DESIGN BEFORE CODE 
-Context Flow Description
+Role of Context Flow  
 1. Introduction
 Context Flow allows software objects to relate to their environment through the design goals enumerated before software is developed. 
 Consider a simple example within the transport domain where a ‘dataset d1’ and ‘map m2’ are software objects that are produced through a ‘module p’ in a component called ‘track Visualiser’. These objects can be related to one another by the design goal “show tram tracks in greater city zone”:
@@ -59,12 +59,11 @@ Design goals in software generally follow what are called patterns. In the examp
 Context Flow treats patterns in design goals as part of software dynamics and as such can play an important role. It seeks to capture these goals through patterns defined at design time before coding starts. For each pattern, Context Flow maintains a pattern table of four columns: product, domain, flow and entity-sets. The product column is any part of the software that can exist as a component or an application such as ‘track Visualiser ‘, the domain column holds the first object (e.g. the ‘data set name’), the flow column holds a cause or designed factor for the relation (e.g. ‘the module name p’) and the entity-sets column has the entry ‘map m2’ as the other object(s) in the relation.
 As there can be many patterns that emerge during design time that are not known beforehand, Context Flow dynamically maintains an pattern table for each one as they emerge. Context Flow captures the pattern in the pattern table, while captures the design goals for the pattern in the context table which ‘anchors’ the column header from the pattern table row . Values for these headers are selected from a set of column values called anchors corresponding to the four columns of the pattern table. This approach allows a software designer to set up the right anchor for a pattern during design time. For example, the pattern ‘show tracks in zone’ pattern maps uniquely to product anchor as ‘product’, the domain anchor as ‘dataset’, flow anchor as ‘module name’ and entity set anchor as ‘map produced’  (or simply ‘maps’). The relationships between the pattern and context tables are represented in Figure below
 
-
- 
-
 3. Searching:
 The Context Flow approach allows a search engine to be employed to search for a particular set of columns that exist for all the patterns and produce a result by analysing all the existing answers available. 
 Within Context Flow this facility is referred to as a uniform search facility, which maintains a context by sequencing the names available in the Context Flow data base, while at the same time ensuring there is always only one entry per name or sequence of names. This ensures the developer can follow a design guideline about finding related objects such as “find the attributes to a dataset  x” using a uniform context locator (UCL) formed as follows:  
 ‘product.dataset.dataformat.attributlist.[product].[domianvalue].[flow value]’  
 The UCL approach will be sufficient to pull the required parameter sequence from the Context Flow data base. This means that instead of constructing a custom relational query, as would be required by standard query language (SQL) to search through joining the anchor table and pattern tables, the UCL simply allows an API call to be issued to the Context Flow Database by sequencing the known entries from the anchor table and the context table.
 
+4. Meta-call for extending existing design:
+This UCL scheme is called a meta-call protocol, as it allows querying or updating at design time when associations are created. Here the meta-call context locator uses the sequence defined above, and the Context Flow database’s integrity of only one entry per name or sequence of names for a fully specified UCL, akin to an index to a table in database (this also serves to provide the benefit of a regular expression for navigation through cross pattern occurrence of entity names). Meta-call is used by the software components to ascertain the entity sets designated for input or output, relevant environment parameters such as output filename, port numbers or registering elapsed time for monitoring purpose, etc. With maturity, this API will allow future intelligent linking of resources with services requiring coordination of entities. Smart answers to queries such as this will help future developers to proactively build new services from old ones while doing mapping of entities output from one service to entities input to the next service.
